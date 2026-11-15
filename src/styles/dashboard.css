@@ -1,0 +1,572 @@
+/* Dashboard only. Chart colors are roles, set once per theme. The categorical
+   order was checked with the dataviz palette validator on both surfaces. */
+:root {
+  --series: #3987e5;
+  --st-applied: #3987e5;
+  --st-viewed: #d95926;
+  --st-assessment: #199e70;
+  --st-interview: #c98500;
+  --st-offer: #d55181;
+  --st-ghosted: #9085e9;
+  --st-rejected: #e66767;
+  /* Sequential blue, low to high. On dark the low end sits near the surface. */
+  --heat-0: rgb(232 237 242 / 0.07);
+  --heat-1: #104281;
+  --heat-2: #1c5cab;
+  --heat-3: #3987e5;
+  --heat-4: #86b6ef;
+}
+:root[data-theme='light'] {
+  --series: #2a78d6;
+  --st-applied: #2a78d6;
+  --st-viewed: #eb6834;
+  --st-assessment: #1baf7a;
+  --st-interview: #eda100;
+  --st-offer: #e87ba4;
+  --st-ghosted: #6250d6;
+  --st-rejected: #e34948;
+  --heat-0: rgb(20 26 33 / 0.07);
+  --heat-1: #9ec5f4;
+  --heat-2: #6da7ec;
+  --heat-3: #2a78d6;
+  --heat-4: #184f95;
+}
+
+.dash {
+  padding: calc(var(--nav-h) + 40px) 0 96px;
+}
+.dash h1 {
+  font-size: clamp(30px, 4.5vw, 44px);
+  margin-top: 16px;
+}
+
+/* Which data is on screen: demo or private. */
+.mode {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 32px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.mode p {
+  flex: 1 1 320px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.mode strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.badge {
+  padding: 4px 10px;
+  border: 1px solid var(--accent-ink);
+  border-radius: 999px;
+  font: 500 12px/1.4 var(--font-mono);
+  color: var(--accent-ink);
+}
+.token {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+}
+.token .field {
+  flex: 1 1 260px;
+  max-width: 420px;
+}
+.token-status {
+  flex: 1 1 100%;
+  min-height: 22px;
+  font-size: 14px;
+  color: var(--bad);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px 16px;
+  margin-top: 32px;
+}
+.filters label,
+.filters legend {
+  display: block;
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.filters fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.filters .control {
+  width: auto;
+  min-width: 160px;
+}
+.filters .grow {
+  flex: 1 1 220px;
+}
+.filters .grow .control {
+  width: 100%;
+}
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.seg label {
+  margin: 0;
+  color: var(--muted);
+  cursor: pointer;
+}
+.seg span {
+  display: block;
+  min-width: 44px;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 22px;
+}
+.seg input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.seg input:checked + span {
+  background: var(--text);
+  color: var(--bg);
+}
+.seg input:focus-visible + span {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+
+/* While private data loads the last render stays, dimmed. No layout jump. */
+[data-view][aria-busy='true'] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  gap: 1px;
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--line);
+  overflow: hidden;
+}
+.kpis div {
+  padding: 16px;
+  background: var(--surface);
+}
+.kpis dt {
+  font-size: 13px;
+  color: var(--muted);
+}
+.kpis dd {
+  margin-top: 4px;
+  font: 500 30px/1.2 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+.kpis dd small {
+  margin-left: 2px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.card {
+  grid-column: span 12;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+@media (min-width: 900px) {
+  .card.half {
+    grid-column: span 6;
+  }
+  .card.third {
+    grid-column: span 4;
+  }
+  .card.two-thirds {
+    grid-column: span 8;
+  }
+}
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+.card h2 {
+  margin: 0;
+  font: 500 16px/1.4 var(--font-body);
+  letter-spacing: 0;
+}
+.card .sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+.card .seg span {
+  padding: 5px 12px;
+  font-size: 13px;
+}
+.empty {
+  padding: 32px 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+.empty-all {
+  margin-top: 24px;
+  padding: 48px 24px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.empty-all h2 {
+  margin: 0;
+  font-size: 22px;
+}
+.empty-all p {
+  max-width: 52ch;
+  margin: 12px auto 0;
+  color: var(--muted);
+}
+
+/* Line chart */
+.plot {
+  position: relative;
+}
+.plot svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+.plot svg:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 4px;
+}
+.plot .gridline {
+  stroke: var(--line);
+}
+.plot text {
+  fill: var(--muted);
+  font: 400 12px var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+.plot .line {
+  fill: none;
+  stroke: var(--series);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.plot .area {
+  fill: var(--series);
+  opacity: 0.12;
+}
+.plot .cross {
+  stroke: var(--muted);
+  stroke-dasharray: 3 3;
+}
+.plot .dot {
+  fill: var(--series);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.tip {
+  position: fixed;
+  z-index: 60;
+  max-width: 260px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-2);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  pointer-events: none;
+}
+.tip strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.tip[hidden] {
+  display: none;
+}
+
+/* Horizontal bars: platform, companies, roles, funnel */
+.hbars {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+.hbars li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  font-size: 14px;
+}
+.hbars .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hbars .val {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.hbars .val b {
+  font-weight: 600;
+  color: var(--text);
+}
+.hbars .track {
+  grid-column: 1 / -1;
+  height: 8px;
+}
+.hbars .fill {
+  width: var(--w);
+  min-width: 2px;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: var(--series);
+}
+.hbars li:hover .fill {
+  filter: brightness(1.15);
+}
+
+/* Donut */
+.donut {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 28px;
+}
+.donut svg {
+  flex: 0 0 auto;
+  width: 168px;
+  height: 168px;
+}
+.donut circle {
+  fill: none;
+  stroke-width: 5;
+}
+.donut circle:hover {
+  stroke-width: 6;
+}
+.donut .total {
+  fill: var(--text);
+  font: 500 9px var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+.donut .total-label {
+  fill: var(--muted);
+  font: 400 3.2px var(--font-body);
+}
+.legend {
+  flex: 1 1 180px;
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+.legend li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--c);
+}
+.legend .val {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.legend .val b {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Calendar heatmap */
+.heat-scroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.heat svg {
+  display: block;
+}
+.heat rect {
+  rx: 2px;
+}
+.heat rect:hover {
+  stroke: var(--text);
+  stroke-width: 1;
+}
+.heat text {
+  fill: var(--muted);
+  font: 400 11px var(--font-body);
+}
+.heat-key {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.heat-key i {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+.heat-key span:first-child {
+  margin-right: 4px;
+}
+.heat-key span:last-child {
+  margin-left: 4px;
+}
+
+.insights {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+.insights li {
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  font-size: 15px;
+}
+
+/* Table */
+.table-scroll {
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+.dash table {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.dash th,
+.dash td {
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.dash th {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.dash th button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.dash th button::after {
+  content: '↕';
+  opacity: 0.4;
+}
+.dash th[aria-sort='ascending'] button::after {
+  content: '↑';
+  opacity: 1;
+}
+.dash th[aria-sort='descending'] button::after {
+  content: '↓';
+  opacity: 1;
+}
+.dash th[aria-sort] button {
+  color: var(--text);
+}
+.dash td.date {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.dash td a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
+}
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.pager div {
+  display: flex;
+  gap: 8px;
+}
+.btn-sm {
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+.btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

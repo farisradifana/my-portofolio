@@ -1,0 +1,156 @@
+---
+// Job application dashboard. Unlisted: noindex, not in the sitemap, and only in
+// the navbar when site.showDashboardInNav is on. Without a read token it shows
+// generated demo data; real rows never ship in the page.
+import Base from '../layouts/Base.astro';
+import '../styles/dashboard.css';
+import { STATUSES } from '../lib/metrics';
+---
+
+<Base title="Job application dashboard | Faris Radifan Ahmad" description="Job application analytics." path="/dashboard/" noindex>
+  <div class="dash">
+    <div class="wrap">
+      <p class="eyebrow">Dashboard</p>
+      <h1>Job application analytics</h1>
+      <p class="lede">
+        Every application my job-search automation sends, tracked from first click to final answer.
+      </p>
+
+      <section class="mode" aria-label="Data source">
+        <span class="badge" id="mode-badge">Demo data</span>
+        <p id="mode-text">
+          <strong>These numbers are generated, not real.</strong> Company names are placeholders. The demo shows how the dashboard
+          works; the real data needs an access token.
+        </p>
+        <button class="btn btn-ghost btn-sm" type="button" id="mode-toggle" aria-expanded="false" aria-controls="token-form">
+          Open private view
+        </button>
+        <form class="token" id="token-form" hidden>
+          <div class="field">
+            <label for="token">Access token</label>
+            <input id="token" name="token" type="password" autocomplete="off" spellcheck="false" required />
+          </div>
+          <button class="btn btn-primary" type="submit"><span>Load my data</span></button>
+          <p class="token-status" id="token-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <form class="filters" id="filters" aria-label="Filters">
+        <fieldset>
+          <legend>Period</legend>
+          <div class="seg">
+            <label><input type="radio" name="range" value="30" /><span>30 days</span></label>
+            <label><input type="radio" name="range" value="60" /><span>60 days</span></label>
+            <label><input type="radio" name="range" value="90" checked /><span>90 days</span></label>
+            <label><input type="radio" name="range" value="0" /><span>All</span></label>
+          </div>
+        </fieldset>
+        <div>
+          <label for="f-platform">Platform</label>
+          <select class="control" id="f-platform" name="platform"><option value="">All platforms</option></select>
+        </div>
+        <div>
+          <label for="f-status">Status</label>
+          <select class="control" id="f-status" name="status">
+            <option value="">All statuses</option>
+            {STATUSES.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div class="grow">
+          <label for="f-search">Search</label>
+          <input class="control" id="f-search" name="search" type="search" placeholder="Company, role, location" autocomplete="off" />
+        </div>
+      </form>
+
+      <div data-view id="view" aria-busy="true">
+        <dl class="kpis" id="kpis"></dl>
+
+        <div class="empty-all" id="empty-all" hidden>
+          <h2 id="empty-title"></h2>
+          <p id="empty-text"></p>
+        </div>
+
+        <div class="grid" id="charts">
+          <section class="card two-thirds" aria-labelledby="c-time">
+            <div class="card-head">
+              <h2 id="c-time">Applications over time</h2>
+              <div class="seg" role="group" aria-label="Series">
+                <label><input type="radio" name="series" value="count" form="filters" checked /><span>Per day</span></label>
+                <label><input type="radio" name="series" value="cumulative" form="filters" /><span>Cumulative</span></label>
+              </div>
+            </div>
+            <div class="plot" id="plot-time"></div>
+          </section>
+
+          <section class="card third" aria-labelledby="c-status">
+            <div class="card-head"><h2 id="c-status">Status</h2></div>
+            <div class="donut" id="plot-status"></div>
+          </section>
+
+          <section class="card half" aria-labelledby="c-platform">
+            <div class="card-head"><h2 id="c-platform">Applications by platform</h2></div>
+            <div id="plot-platform"></div>
+          </section>
+
+          <section class="card half" aria-labelledby="c-funnel">
+            <div class="card-head">
+              <h2 id="c-funnel">Funnel</h2>
+              <span class="sub">Applications that reached each stage</span>
+            </div>
+            <div id="plot-funnel"></div>
+          </section>
+
+          <section class="card half" aria-labelledby="c-companies">
+            <div class="card-head"><h2 id="c-companies">Top 10 companies</h2></div>
+            <div id="plot-companies"></div>
+          </section>
+
+          <section class="card half" aria-labelledby="c-roles">
+            <div class="card-head"><h2 id="c-roles">Top 10 roles</h2></div>
+            <div id="plot-roles"></div>
+          </section>
+
+          <section class="card two-thirds" aria-labelledby="c-heat">
+            <div class="card-head">
+              <h2 id="c-heat">Activity calendar</h2>
+              <span class="sub">Applications sent per day</span>
+            </div>
+            <div class="heat" id="plot-heat"></div>
+          </section>
+
+          <section class="card third" aria-labelledby="c-insights">
+            <div class="card-head"><h2 id="c-insights">Insights</h2></div>
+            <div id="insights"></div>
+          </section>
+
+          <section class="card" aria-labelledby="c-table">
+            <div class="card-head">
+              <h2 id="c-table">Applications</h2>
+              <button class="btn btn-ghost btn-sm" type="button" id="export">Export CSV</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr id="thead"></tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+              </table>
+            </div>
+            <div class="pager">
+              <span id="page-info"></span>
+              <div>
+                <button class="btn btn-ghost btn-sm" type="button" id="prev">Previous</button>
+                <button class="btn btn-ghost btn-sm" type="button" id="next">Next</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+
+  <script>
+    import '../scripts/dashboard.ts';
+  </script>
+</Base>
