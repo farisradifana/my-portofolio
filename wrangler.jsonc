@@ -17,8 +17,10 @@
   },
 
   "routes": [
-    { "pattern": "farisradifana.my.id", "custom_domain": true },
-    { "pattern": "www.farisradifana.my.id", "custom_domain": true }
+    // Workers Routes: the apex and www DNS records stay user-managed in the
+    // Cloudflare dashboard and must be proxied (orange cloud).
+    { "pattern": "farisradifana.my.id/*", "zone_name": "farisradifana.my.id" },
+    { "pattern": "www.farisradifana.my.id/*", "zone_name": "farisradifana.my.id" }
   ],
 
   // Job applications for /dashboard. No database_id here: Wrangler creates the

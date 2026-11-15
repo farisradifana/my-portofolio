@@ -56,8 +56,7 @@ Pushing to `main` runs `.github/workflows/deploy.yml`: check, test, build, then 
    - Zone → Workers Routes → Edit (zone `farisradifana.my.id` only)
    - User → User Details → Read
 
-   Limit the token to the one account. If attaching the custom domains fails with a permission error,
-   add Zone → DNS → Edit for the same zone. The token is never stored in this repository.
+   Limit the token to the one account. The token is never stored in this repository.
 2. **Worker secrets.** Generate two different random values and store them as Worker secrets:
 
    ```bash
@@ -81,16 +80,17 @@ Pushing to `main` runs `.github/workflows/deploy.yml`: check, test, build, then 
 
 ### DNS records to verify
 
-The zone `farisradifana.my.id` must be on Cloudflare. Both hostnames are attached as Worker custom domains,
-so Cloudflare creates the records and certificates on deploy. After the first deploy, confirm:
+The zone `farisradifana.my.id` must be on Cloudflare with its nameservers set to Cloudflare at the registrar.
+The Worker is attached with Workers Routes (`farisradifana.my.id/*` and `www.farisradifana.my.id/*`), so the
+two DNS records stay managed in the dashboard. Each must be **proxied** (orange cloud), or traffic never reaches
+the Worker. The record target is not used while the route matches; a placeholder is fine:
 
-| Host | Expected |
-| --- | --- |
-| `farisradifana.my.id` | Proxied record pointing to the Worker `my-portofolio` |
-| `www.farisradifana.my.id` | Proxied record pointing to the Worker `my-portofolio` |
+| Type | Name | Content | Proxy |
+| --- | --- | --- | --- |
+| `AAAA` | `@` | `100::` | Proxied |
+| `CNAME` | `www` | `farisradifana.my.id` | Proxied |
 
-Remove any older `A`, `AAAA` or `CNAME` record on those two names first, or the custom domain cannot be attached.
-Keep `MX` and `TXT` records.
+Keep `MX` and `TXT` records. SSL/TLS mode `Full` or `Full (strict)` works; the Worker answers before any origin.
 
 ## Dashboard
 
