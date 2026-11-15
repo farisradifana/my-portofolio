@@ -1,0 +1,367 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Gallery from '../components/Gallery.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
+import cover from '../assets/photos/cover-porto.png';
+import kelingking from '../assets/photos/kelingking.jpg';
+import {
+  about, beyond, certifications, education, experience, expertise, hero, languages,
+  projects, site, skillChips, skills, stats,
+} from '../data/site';
+import { socials } from '../data/socials';
+import { groupFiles } from '../lib/gallery-match';
+
+// Files that match no role still get shown, in an "Other Work" gallery.
+const allFiles = Object.keys(import.meta.glob('../assets/gallery/*')).map((p) => p.split('/').pop()!);
+const hasOther = groupFiles(allFiles).other.length > 0;
+const [first, ...rest] = site.name.split(' ');
+const fmt = new Intl.NumberFormat('en-US');
+---
+
+<Base>
+  <section class="hero on-dark" id="home" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <h1 id="hero-title"><span>{first}</span> {rest.join(' ')}</h1>
+        <p class="role">DATA ANALYST · BUSINESS INTELLIGENCE · AUTOMATION</p>
+        {hero.paragraphs.map((p) => <p class="body">{p}</p>)}
+        <div class="cta">
+          <a class="btn btn-primary" href="#experience">View my work</a>
+          <a class="btn btn-ghost" href="#contact">Contact me</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <Image
+          src={cover}
+          alt="Faris Radifan Ahmad at a desk with a laptop and a mug, a warm pendant lamp behind him"
+          width={1120}
+          widths={[480, 720, 1120]}
+          sizes="(min-width: 900px) 560px, 90vw"
+          format="webp"
+          quality={78}
+          loading="eager"
+          fetchpriority="high"
+          data-parallax
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <div class="copy reveal">
+        <p class="eyebrow">About</p>
+        <h2 id="about-title">Analyst with a planning desk and a field route</h2>
+        {about.summary.map((p) => <p>{p}</p>)}
+      </div>
+      <ul class="values reveal">
+        {
+          about.values.map((v) => (
+            <li>
+              <Icon name={v.icon} />
+              <div>
+                <h3>{v.title}</h3>
+                <p>{v.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section alt" id="expertise" aria-labelledby="expertise-title">
+    <div class="wrap">
+      <p class="eyebrow">Expertise</p>
+      <h2 id="expertise-title">What I do</h2>
+      <ul class="cards reveal">
+        {
+          expertise.map((e) => (
+            <li>
+              <Icon name={e.icon} />
+              <h3>{e.title}</h3>
+              <p>{e.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="experience" aria-labelledby="experience-title">
+    <div class="wrap">
+      <p class="eyebrow">Experience</p>
+      <h2 id="experience-title">Nine years across networks, distribution and planning</h2>
+      <p class="lede">
+        From drive tests and fiber installs to commercial planning at Indosat. The numbers below are from that work.
+      </p>
+
+      <dl class="stats reveal">
+        {
+          stats.map((s) => (
+            <div>
+              <dt>{s.label}</dt>
+              <dd>
+                {s.prefix && <small>{s.prefix}</small>}<span data-count={s.value}>{fmt.format(s.value)}</span>{s.suffix && <small>{s.suffix}</small>}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="timeline">
+        {
+          experience.map((employer) => (
+            <article class="employer">
+              <h3>{employer.company}</h3>
+              <div class="roles">
+                {employer.roles.map((role) => (
+                  <section class="role reveal">
+                    <h3>{role.title}</h3>
+                    <span class="period">{role.period}</span>
+                    {role.highlight && (
+                      <p class="award">
+                        <Icon name="award" />
+                        {role.highlight}
+                      </p>
+                    )}
+                    <ul class="points">
+                      {role.points.map((p) => <li>{p}</li>)}
+                    </ul>
+                    {role.gallery && <Gallery group={role.gallery} />}
+                  </section>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+        {
+          hasOther && (
+            <article class="employer">
+              <h3>Other Work</h3>
+              <div class="roles">
+                <section class="role">
+                  <Gallery group="other" />
+                </section>
+              </div>
+            </article>
+          )
+        }
+      </div>
+
+      <div class="creds">
+        <div>
+          <h3>Education</h3>
+          <ul>
+            {
+              education.map((e) => (
+                <li>
+                  <span>
+                    {e.degree}
+                    <small>{e.school} · {e.note}</small>
+                  </span>
+                  <span>{e.period}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3>Certifications and courses</h3>
+          <ul>
+            {
+              certifications.map((c) => (
+                <li>
+                  <span>
+                    {c.name}
+                    {c.issuer && <small>{c.issuer}</small>}
+                  </span>
+                  <span>{c.date}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <p class="eyebrow">Projects</p>
+      <h2 id="projects-title">Built outside the day job</h2>
+      <ul class="projects">
+        {
+          projects.map((p) => {
+            const external = p.href?.startsWith('http');
+            return (
+              <li class:list={['project', 'reveal', { featured: p.gallery }]}>
+                <span class="kind">{p.kind}</span>
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+                {p.goal && (
+                  <div class="project-detail">
+                    <div>
+                      <h4>Goal</h4>
+                      <p>{p.goal}</p>
+                      {p.note && <p>{p.note}</p>}
+                    </div>
+                    <div>
+                      <h4>Infrastructure</h4>
+                      <ul>{p.infrastructure?.map((x) => <li>{x}</li>)}</ul>
+                    </div>
+                    <div>
+                      <h4>Flow</h4>
+                      <ol>{p.flow?.map((x) => <li>{x}</li>)}</ol>
+                    </div>
+                  </div>
+                )}
+                {p.gallery && <ProjectGallery title={p.title} dir={p.gallery.dir} images={p.gallery.images} />}
+                <ul class="tags" aria-label="Technologies">
+                  {p.tags.map((t) => <li>{t}</li>)}
+                </ul>
+                {p.href && (
+                  <a class="project-link" href={p.href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                    {p.linkLabel}
+                  </a>
+                )}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <p class="eyebrow">Skills</p>
+      <h2 id="skills-title">Tools I work in</h2>
+      <div class="skills-grid">
+        <div>
+          <ul class="bars">
+            {
+              skills.map((s) => (
+                <li>
+                  <div class="bar-head">
+                    <span>{s.name}</span>
+                    <span class="num">{s.level}%</span>
+                  </div>
+                  <div class="bar" role="img" aria-label={`${s.name}: ${s.level} percent`} style={`--level:${s.level}%`}>
+                    <i />
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="note">Percentages are self-assessed.</p>
+        </div>
+        <div class="reveal">
+          <h3>Core skills</h3>
+          <ul class="chips">
+            {skillChips.map((c) => <li>{c}</li>)}
+          </ul>
+          <h3>Languages</h3>
+          <ul class="chips">
+            {languages.map((l) => <li>{l}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="beyond" aria-labelledby="beyond-title">
+    <div class="wrap beyond">
+      <Image
+        class="reveal"
+        src={kelingking}
+        alt={beyond.alt}
+        width={1200}
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 900px) 660px, 92vw"
+        format="webp"
+        quality={65}
+        loading="lazy"
+      />
+      <div class="reveal">
+        <p class="eyebrow">Beyond work</p>
+        <h2 id="beyond-title">{beyond.title}</h2>
+        <p>{beyond.text}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Hiring for a data or planning role?</h2>
+      <p class="lede">I am available now and open to remote, hybrid or on-site work. Send a message or email me directly.</p>
+      <div class="contact-grid">
+        <div>
+          <ul class="details">
+            <li><Icon name="mail" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+            <li><Icon name="map-pin" /><span>{site.location}</span></li>
+            <li><Icon name="file-text" /><a href={site.cv} download>Download CV (PDF)</a></li>
+          </ul>
+          <ul class="socials" aria-label="Social profiles">
+            {
+              socials.map((s) => (
+                <li>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} (opens in a new tab)`} style={s.color ? `--brand:${s.color}` : undefined}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={s.path} /></svg>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <form class="contact" id="contact-form" novalidate>
+          <div class="field">
+            <label for="c-name">Name</label>
+            <input id="c-name" name="name" type="text" autocomplete="name" required maxlength="100" data-validate aria-describedby="c-name-err" />
+            <p class="err" id="c-name-err" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" name="email" type="email" autocomplete="email" required maxlength="254" data-validate aria-describedby="c-email-err" />
+            <p class="err" id="c-email-err" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" required maxlength="5000" data-validate aria-describedby="c-message-err"></textarea>
+            <p class="err" id="c-message-err" aria-live="polite"></p>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="c-website">Leave this field empty</label>
+            <input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div>
+            <button class="btn btn-primary" type="submit"><span>Send message</span></button>
+          </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+    <span class="lb-count num" aria-live="polite"></span>
+    <button class="icon-btn lb-close" type="button" aria-label="Close image viewer"><Icon name="x" /></button>
+    <div class="lb-viewport">
+      <div class="lb-track"></div>
+    </div>
+    <div class="lb-bar">
+      <button class="icon-btn lb-prev" type="button" aria-label="Previous image"><Icon name="chevron-left" /></button>
+      <p class="lb-caption"></p>
+      <button class="icon-btn lb-next" type="button" aria-label="Next image"><Icon name="chevron-right" /></button>
+    </div>
+  </dialog>
+
+  <script>
+    import '../scripts/lightbox.ts';
+    import '../scripts/contact.ts';
+  </script>
+</Base>

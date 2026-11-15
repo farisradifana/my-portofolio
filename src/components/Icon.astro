@@ -1,0 +1,25 @@
+---
+// Line icons from lucide, inlined at build time. One set, one stroke width.
+import nodes from 'lucide-static/icon-nodes.json';
+
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: cls } = Astro.props;
+const icon = (nodes as unknown as Record<string, [string, Record<string, string>][]>)[name];
+if (!icon) throw new Error(`Unknown icon: ${name}`);
+---
+
+<svg
+  class:list={['icon', cls]}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {icon.map(([Tag, attrs]) => <Tag {...attrs} />)}
+</svg>
