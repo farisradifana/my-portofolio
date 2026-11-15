@@ -188,7 +188,7 @@ export const experience: Employer[] = [
     ],
   },
   {
-    company: 'Telkom Malang',
+    company: 'PT Telkom Indonesia Tbk',
     roles: [
       {
         title: 'FTTH Intern',
@@ -196,6 +196,7 @@ export const experience: Employer[] = [
         points: [
           'Assisted with fiber-optic network installation, infrastructure inspection and basic FTTH maintenance.',
           'Supported network quality monitoring and learned connectivity troubleshooting and fault handling.',
+          'The internship will take place at PT Telkom Indonesia in Malang, East Java',
         ],
       },
     ],
