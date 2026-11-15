@@ -1,6 +1,6 @@
-// Project screenshot carousels. The track is a native scroll-snap list, so it
-// works by touch, trackpad and keyboard without this script; the script adds the
-// previous/next buttons, the counter and the group shortcuts.
+// Project screenshot carousels. Without this script the track is a plain
+// scrollable strip. With it, the strip moves only by the previous/next buttons,
+// the arrow keys and the group shortcuts; the counter follows.
 const carouselReduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
@@ -12,42 +12,34 @@ document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
   const slides = [...track.children] as HTMLElement[];
   const chips = [...root.querySelectorAll<HTMLButtonElement>('.car-groups button')];
   if (slides.length === 0) return;
+  root.classList.add('js');
 
-  const left = (i: number) => slides[i].offsetLeft - slides[0].offsetLeft;
-  const current = () => {
-    const x = track.scrollLeft;
-    let best = 0;
-    for (let i = 1; i < slides.length; i++) if (Math.abs(left(i) - x) < Math.abs(left(best) - x)) best = i;
-    return best;
-  };
-  const go = (i: number) => {
-    const target = Math.max(0, Math.min(slides.length - 1, i));
-    track.scrollTo({ left: left(target), behavior: carouselReduceMotion ? 'auto' : 'smooth' });
-  };
+  let index = 0;
+  const left = (i: number) => slides[i]!.offsetLeft - slides[0]!.offsetLeft;
 
-  const update = () => {
-    const i = current();
-    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
-    count.textContent = `${i + 1} / ${slides.length}`;
-    prev.disabled = track.scrollLeft <= 2;
-    next.disabled = atEnd;
+  const go = (i: number, smooth = true) => {
+    index = Math.max(0, Math.min(slides.length - 1, i));
+    const max = track.scrollWidth - track.clientWidth;
+    track.scrollTo({ left: Math.min(left(index), max), behavior: smooth && !carouselReduceMotion ? 'smooth' : 'auto' });
+    count.textContent = `${index + 1} / ${slides.length}`;
+    prev.disabled = index === 0;
+    next.disabled = index === slides.length - 1;
     let active: HTMLButtonElement | undefined;
-    for (const chip of chips) if (Number(chip.dataset.start) <= i) active = chip;
+    for (const chip of chips) if (Number(chip.dataset.start) <= index) active = chip;
     for (const chip of chips) chip.setAttribute('aria-pressed', chip === active ? 'true' : 'false');
   };
 
-  let queued = false;
-  track.addEventListener('scroll', () => {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(() => {
-      queued = false;
-      update();
-    });
-  }, { passive: true });
-
-  prev.addEventListener('click', () => go(current() - 1));
-  next.addEventListener('click', () => go(current() + 1));
+  prev.addEventListener('click', () => go(index - 1));
+  next.addEventListener('click', () => go(index + 1));
   for (const chip of chips) chip.addEventListener('click', () => go(Number(chip.dataset.start)));
-  update();
+  track.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    go(index + (e.key === 'ArrowRight' ? 1 : -1));
+  });
+  // Tabbing to a slide that is out of view moves the strip to it.
+  slides.forEach((slide, i) => slide.addEventListener('focusin', () => i !== index && go(i)));
+  // Keep the current slide in place when the layout width changes.
+  addEventListener('resize', () => go(index, false));
+  go(0, false);
 });

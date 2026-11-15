@@ -1,6 +1,7 @@
 // Dashboard page. Every number comes from src/lib/metrics.ts; this file only
 // fetches, filters and draws. All text reaches the DOM through textContent.
 import { demoApplications } from '../lib/demo';
+import publicRows from '../data/applications.public.json';
 import {
   STATUSES, applyFilters, countBy, daysBetween, funnel, insights, kpis, pct, perDay, statusDistribution, toCsv,
   type Application, type Bucket, type Status,
@@ -47,7 +48,7 @@ const COLUMNS: [SortKey, string][] = [
 ];
 
 let all: Application[] = [];
-let mode: 'demo' | 'private' = 'demo';
+let mode: 'demo' | 'public' | 'private' = 'demo';
 let view: Application[] = [];
 let sort: { key: SortKey; dir: 1 | -1 } = { key: 'applied_at', dir: -1 };
 let page = 0;
@@ -433,7 +434,7 @@ function render() {
   drawTable();
 }
 
-function setData(apps: Application[], next: 'demo' | 'private') {
+function setData(apps: Application[], next: 'demo' | 'public' | 'private') {
   all = apps;
   mode = next;
   page = 0;
@@ -444,21 +445,26 @@ function setData(apps: Application[], next: 'demo' | 'private') {
   select.value = names.includes(chosen) ? chosen : '';
 
   const priv = mode === 'private';
-  $('mode-badge').textContent = priv ? 'Private data' : 'Demo data';
+  $('mode-badge').textContent = priv ? 'Private data' : mode === 'public' ? 'Tracker data' : 'Demo data';
   const text = $('mode-text');
   if (priv) {
     text.replaceChildren(
       el('strong', '', 'Live data from the application tracker.'),
       document.createTextNode(` Loaded at ${pad(new Date().getHours())}:${pad(new Date().getMinutes())}. The token stays in this tab only.`),
     );
+  } else if (mode === 'public') {
+    text.replaceChildren(
+      el('strong', '', 'Real applications from the tracker.'),
+      document.createTextNode(' Company names are shortened to initials; links and notes are left out.'),
+    );
   } else {
     text.replaceChildren(
       el('strong', '', 'These numbers are generated, not real.'),
-      document.createTextNode(' Company names are placeholders. The demo shows how the dashboard works; the real data needs an access token.'),
+      document.createTextNode(' The tracker has no submitted applications yet. Real rows replace this demo once there are some, with company names shortened to initials.'),
     );
   }
   const toggle = $('mode-toggle');
-  toggle.textContent = priv ? 'Back to demo' : 'Open private view';
+  toggle.textContent = priv ? 'Back to public view' : 'Open private view';
   toggle.setAttribute('aria-expanded', 'false');
   $('token-form').hidden = true;
   viewEl.setAttribute('aria-busy', 'false');
@@ -516,7 +522,10 @@ const storage = {
   },
 };
 
-const showDemo = () => setData(demoApplications(today), 'demo');
+// Public view: the exported tracker rows (company initials only). The generated
+// demo stands in only while the tracker has no submitted applications.
+const publicApps = publicRows as unknown as Application[];
+const showDemo = () => (publicApps.length > 0 ? setData(publicApps, 'public') : setData(demoApplications(today), 'demo'));
 
 // ---- Events -----------------------------------------------------------------
 

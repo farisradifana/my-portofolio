@@ -594,6 +594,17 @@ h3 {
   font-size: 14px;
   font-weight: 500;
 }
+@media (min-width: 768px) {
+  .employer {
+    grid-template-columns: 200px 1fr;
+  }
+  /* The company name stays in view while its roles scroll past. */
+  .employer > h3 {
+    position: sticky;
+    top: calc(var(--nav-h) + 24px);
+    align-self: start;
+  }
+}
 @media (min-width: 900px) {
   .employer {
     grid-template-columns: 240px 1fr;
@@ -938,6 +949,10 @@ h3 {
   font-size: 15px;
 }
 @media (min-width: 640px) {
+  .beyond p,
+  .beyond .beyond-rule {
+    max-width: 68ch;
+  }
   .beyond {
     grid-template-columns: 240px 1fr;
     gap: 48px;
@@ -1131,6 +1146,11 @@ form.contact {
 }
 
 /* Project screenshot carousel: a scroll-snap strip with buttons and group shortcuts. */
+/* Grid items default to min-width:auto, which would let the strip widen the page. */
+.project,
+.carousel {
+  min-width: 0;
+}
 .car-head {
   display: flex;
   align-items: center;
@@ -1206,6 +1226,12 @@ form.contact {
   overscroll-behavior-x: contain;
   scrollbar-width: thin;
 }
+/* With the script running the strip moves by the buttons only. */
+.carousel.js .car-track {
+  padding-bottom: 0;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+}
 .car-track li {
   flex: 0 0 min(82%, 600px);
   scroll-snap-align: start;
@@ -1217,10 +1243,13 @@ form.contact {
   border-radius: 8px;
   background: var(--surface);
   aspect-ratio: 16 / 10;
+  /* Space between the capture and its frame. */
+  padding: 18px;
 }
 .car-track img {
   width: 100%;
   height: 100%;
+  border-radius: 4px;
   object-fit: cover;
   object-position: top;
 }
@@ -1230,6 +1259,31 @@ form.contact {
 }
 .project-detail .wide {
   grid-column: 1 / -1;
+}
+
+/* Headings and intros marked .fit stay on one line from tablet width up (.fit-lg
+   from 1024px, for text too long to read on one line at tablet-portrait width).
+   --fit is the text width in em; the font shrinks just enough to fit the column. */
+@media (min-width: 768px) {
+  .fit {
+    max-width: none;
+    white-space: nowrap;
+    font-size: min(var(--fit-max), calc(min(100vw - 2 * var(--gutter), var(--wrap)) / var(--fit)));
+  }
+}
+@media (min-width: 1024px) {
+  .fit-lg {
+    max-width: none;
+    white-space: nowrap;
+    font-size: min(var(--fit-max), calc(min(100vw - 2 * var(--gutter), var(--wrap)) / var(--fit)));
+  }
+}
+h2.fit {
+  --fit-max: 40px;
+}
+.lede.fit,
+.lede.fit-lg {
+  --fit-max: 17px;
 }
 
 /* Author display rules must not un-hide elements with the hidden attribute. */

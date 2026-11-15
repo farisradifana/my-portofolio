@@ -1,7 +1,8 @@
 ---
 // Job application dashboard. Unlisted: noindex, not in the sitemap, and only in
 // the navbar when site.showDashboardInNav is on. Without a read token it shows
-// generated demo data; real rows never ship in the page.
+// the exported tracker rows with company names cut to initials (see
+// scripts/export-public.mjs), or generated demo data while there are none.
 import Base from '../layouts/Base.astro';
 import '../styles/dashboard.css';
 import { STATUSES } from '../lib/metrics';
@@ -19,8 +20,8 @@ import { STATUSES } from '../lib/metrics';
       <section class="mode" aria-label="Data source">
         <span class="badge" id="mode-badge">Demo data</span>
         <p id="mode-text">
-          <strong>These numbers are generated, not real.</strong> Company names are placeholders. The demo shows how the dashboard
-          works; the real data needs an access token.
+          <strong>These numbers are generated, not real.</strong> The tracker has no submitted applications yet. Real rows replace
+          this demo once there are some, with company names shortened to initials.
         </p>
         <button class="btn btn-ghost btn-sm" type="button" id="mode-toggle" aria-expanded="false" aria-controls="token-form">
           Open private view

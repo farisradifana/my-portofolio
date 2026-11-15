@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { bearer, MAX_BATCH, parseApplications, parseContact, secretsMatch } from '../worker/validate';
 import { mapTracker, parseCsv } from '../scripts/sync-tracker.mjs';
+import { companyInitials, toPublic } from '../scripts/export-public.mjs';
 
 const validApp = {
   id: 'abc-123',
@@ -113,5 +114,31 @@ describe('sync-tracker', () => {
 
   it('returns nothing for a header-only tracker', () => {
     expect(mapTracker(parseCsv(header + '\n'))).toEqual({ applications: [], skipped: [] });
+  });
+});
+
+describe('export-public', () => {
+  const header = 'date,company,role,score,status,source,cv_used,job_url,ats_url,notes,followup_date,run_id';
+
+  it('cuts company names to initials and keeps the legal prefix', () => {
+    expect(companyInitials('PT. Prima Sentral Distribusi')).toBe('PT. PSD');
+    expect(companyInitials('PT. Metrodata')).toBe('PT. MD');
+    expect(companyInitials('PT Indosat Tbk')).toBe('PT. IS');
+    expect(companyInitials('NextWave Technologies')).toBe('NT');
+  });
+
+  it('exports no full company name, link or note, and keeps companies apart', () => {
+    const csv = [
+      header,
+      '2026-11-10,PT. Prima Sentral Distribusi,Data Analyst,88,APPLIED,LinkedIn,cv.pdf,https://example.com/j/1,,private note,,r1',
+      '2026-11-11,PT. Pasar Segar Depok,BI Analyst,80,APPLIED,Glints,cv.pdf,https://example.com/j/2,,,,r1',
+      '2026-11-12,PT. Prima Sentral Distribusi,Planner,75,APPLIED,JobStreet,cv.pdf,https://example.com/j/3,,,,r2',
+    ].join('\n');
+    const rows = toPublic(mapTracker(parseCsv(csv)).applications);
+    expect(rows.map((r) => r.company)).toEqual(['PT. PSD', 'PT. PSD 2', 'PT. PSD']);
+    expect(rows.map((r) => r.id)).toEqual(['app-0001', 'app-0002', 'app-0003']);
+    expect(rows.every((r) => r.source_url === '' && r.notes === '')).toBe(true);
+    expect(JSON.stringify(rows)).not.toMatch(/Prima|Pasar|example\.com|private note/);
+    expect(parseApplications(rows).ok).toBe(true);
   });
 });

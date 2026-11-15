@@ -353,14 +353,16 @@ export const projects: Project[] = [
     kind: 'Python CLI with a browser agent · 2026',
     text: 'Finds jobs, scores them against one candidate pack, verifies each on the real application page and records every result in a tracker. A job counts as applied only after the confirmation page is seen.',
     tags: ['Python', 'Automation', 'Scoring', 'Tracker'],
+    href: '/blueprint/ai-job-apply/',
+    linkLabel: 'View the system blueprint',
   },
   {
     title: 'Portfolio and application analytics',
     kind: 'This site · 2026',
-    text: 'A static site on Cloudflare Workers with a job-application dashboard: KPIs, funnel, heatmap and insights computed from the tracker data. The public view runs on synthetic data.',
+    text: 'A static site on Cloudflare Workers with a job-application dashboard: KPIs, funnel, heatmap and insights computed from the tracker data. The public view is built from the real tracker, with company names shortened to initials.',
     tags: ['Astro', 'TypeScript', 'Cloudflare Workers', 'SVG charts'],
     href: '/dashboard/',
-    linkLabel: 'Open the demo dashboard',
+    linkLabel: 'Open the dashboard',
   },
 ];
 
