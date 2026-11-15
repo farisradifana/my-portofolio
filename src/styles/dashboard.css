@@ -427,9 +427,6 @@
 .heat svg {
   display: block;
 }
-.heat rect {
-  rx: 2px;
-}
 .heat rect:hover {
   stroke: var(--text);
   stroke-width: 1;
@@ -559,7 +556,25 @@
 }
 .pager div {
   display: flex;
+  align-items: center;
   gap: 8px;
+}
+.page-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 4px;
+}
+.page-size select {
+  min-height: 36px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface, transparent);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
 }
 .btn-sm {
   min-height: 36px;

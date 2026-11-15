@@ -8,7 +8,7 @@ import {
 } from '../lib/metrics';
 
 const TOKEN_KEY = 'dashboard-read-token';
-const PAGE_SIZE = 15;
+const PAGE_SIZES = [15, 50, 100, 200];
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const DAY = 86_400_000;
 
@@ -52,6 +52,7 @@ let mode: 'demo' | 'public' | 'private' = 'demo';
 let view: Application[] = [];
 let sort: { key: SortKey; dir: 1 | -1 } = { key: 'applied_at', dir: -1 };
 let page = 0;
+let pageSize = PAGE_SIZES[0];
 
 const filtersForm = $<HTMLFormElement>('filters');
 const viewEl = $('view');
@@ -281,15 +282,18 @@ function drawHeat(apps: Application[], days: number) {
   const lead = (new Date(start + 'T00:00:00Z').getUTCDay() + 6) % 7;
   const first = addDays(start, -lead);
   const span = daysBetween(first, today) + 1;
-  const [CELL, STEP, LEFT, TOP] = [12, 15, 30, 18];
+  const [LEFT, TOP] = [30, 18];
   const cols = Math.ceil(span / 7);
+  // Size cells to the card width; below 15px per column the calendar scrolls instead.
+  const STEP = Math.max(15, Math.min(48, Math.floor((host.clientWidth - LEFT) / cols)));
+  const CELL = STEP - Math.max(3, Math.round(STEP / 6));
   const max = Math.max(0, ...[...counts].filter(([d]) => d >= start && d <= today).map(([, c]) => c));
 
   const root = svg('svg', { width: LEFT + cols * STEP, height: TOP + 7 * STEP, role: 'img' });
   root.setAttribute('aria-label', `Applications per day from ${fmt(start, longDate)} to ${fmt(today, longDate)}. Busiest day: ${max}.`);
   ['Mon', '', 'Wed', '', 'Fri', '', ''].forEach((name, row) => {
     if (!name) return;
-    const t = svg('text', { x: 0, y: TOP + row * STEP + 10 });
+    const t = svg('text', { x: 0, y: TOP + row * STEP + CELL / 2 + 4 });
     t.textContent = name;
     root.append(t);
   });
@@ -306,7 +310,7 @@ function drawHeat(apps: Application[], days: number) {
     if (date < start) continue;
     const n = counts.get(date) ?? 0;
     const level = n === 0 ? 0 : Math.max(1, Math.ceil((n / max) * 4));
-    const cell = svg('rect', { x: LEFT + col * STEP, y: TOP + row * STEP, width: CELL, height: CELL, rx: 2 });
+    const cell = svg('rect', { x: LEFT + col * STEP, y: TOP + row * STEP, width: CELL, height: CELL, rx: CELL > 20 ? 4 : 2 });
     cell.style.setProperty('fill', `var(--heat-${level})`);
     hoverTip(cell, fmt(date, longDate), n === 0 ? 'No applications' : `${plural(n)} sent`);
     root.append(cell);
@@ -366,9 +370,9 @@ function drawHead() {
 function drawTable() {
   drawHead();
   const rows = sorted();
-  const pages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  const pages = Math.max(1, Math.ceil(rows.length / pageSize));
   page = Math.min(page, pages - 1);
-  const slice = rows.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const slice = rows.slice(page * pageSize, (page + 1) * pageSize);
   $('tbody').replaceChildren(
     ...slice.map((a) => {
       const tr = el('tr');
@@ -392,7 +396,7 @@ function drawTable() {
       return tr;
     }),
   );
-  $('page-info').textContent = `${page * PAGE_SIZE + 1}–${page * PAGE_SIZE + slice.length} of ${plural(rows.length)} · page ${page + 1} of ${pages}`;
+  $('page-info').textContent = `${page * pageSize + 1}–${page * pageSize + slice.length} of ${plural(rows.length)} · page ${page + 1} of ${pages}`;
   $<HTMLButtonElement>('prev').disabled = page === 0;
   $<HTMLButtonElement>('next').disabled = page >= pages - 1;
 }
@@ -576,6 +580,28 @@ $('next').addEventListener('click', () => {
   page++;
   drawTable();
 });
+
+$<HTMLSelectElement>('page-size').addEventListener('change', (e) => {
+  const size = Number((e.target as HTMLSelectElement).value);
+  if (!PAGE_SIZES.includes(size)) return;
+  // Keep the first visible row on screen after the size changes.
+  page = Math.floor((page * pageSize) / size);
+  pageSize = size;
+  drawTable();
+});
+
+// Redraw the calendar when its card changes width so the cells keep filling it.
+let heatWidth = 0;
+let heatTimer = 0;
+new ResizeObserver(([entry]) => {
+  const width = Math.round(entry.contentRect.width);
+  if (width === 0 || width === heatWidth) return;
+  const first = heatWidth === 0;
+  heatWidth = width;
+  if (first || view.length === 0) return;
+  clearTimeout(heatTimer);
+  heatTimer = window.setTimeout(() => drawHeat(view, period().days), 100);
+}).observe($('plot-heat'));
 
 $('export').addEventListener('click', () => {
   const url = URL.createObjectURL(new Blob(['﻿' + toCsv(sorted())], { type: 'text/csv;charset=utf-8' }));
