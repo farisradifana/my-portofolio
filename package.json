@@ -9,7 +9,7 @@
     "check": "astro check && tsc --noEmit -p worker",
     "test": "vitest run",
     "deploy": "astro build && wrangler deploy",
-    "sync-tracker": "node scripts/sync-tracker.mjs",
+    "sync-tracker": "node --env-file-if-exists=.env scripts/sync-tracker.mjs",
     "export-public": "node scripts/export-public.mjs"
   },
   "dependencies": {
