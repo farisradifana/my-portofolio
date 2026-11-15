@@ -1092,6 +1092,14 @@ form.contact {
   }
 }
 
+/* Link back to the portfolio at the top of the blueprint and dashboard pages */
+.back {
+  margin: 0 0 20px;
+}
+.bp .back {
+  margin: 0;
+}
+
 /* Closing note above the footer */
 .closing {
   padding-block: clamp(24px, 4vw, 48px) clamp(56px, 8vw, 96px);
