@@ -139,6 +139,7 @@ export const experience: Employer[] = [
       {
         title: 'Staff Prepaid Operations & Budget Management 3ID',
         period: 'Apr 2024 – May 2024',
+        gallery: 'prepaid',
         points: [
           'Monitored regional operational budgets totaling IDR 2 billion a year and analyzed budget utilization, sales performance and KPI achievement.',
           'Supported purchase order, sales order and product delivery processes for 15 partners with the sales, finance and distribution teams.',
@@ -203,6 +204,7 @@ export const experience: Employer[] = [
 
 export const galleryTitles: Record<GroupId, string> = {
   rural: 'Staff Rural Distribution IM3',
+  prepaid: 'Staff Prepaid Operations & Budget Management 3ID',
   trade: 'Staff Trade Marketing 3ID',
   busplan: 'Business Planning & Performance 3ID',
   mis: 'MIS Coordinator',
@@ -225,6 +227,8 @@ export const galleryAlt: Record<string, string> = {
   'trade 4': 'KRO Trip group wearing woven scarves at the Lombok airport entrance',
   'porto trade 1':
     'Power BI dashboard for the Mega Cuan voucher program: outlet counts, growth and revenue by region with region, area and branch filters',
+  'busplan champions 2023':
+    'Large group of Indosat Ooredoo Hutchison staff in dark shirts raising their fists in front of a Champions 2023 backdrop',
   'busplan 1': 'Collage of three photos of the business planning team in white shirts in the 3ID office',
   'porto busplan 2':
     'Power BI area overview dashboard for Purwokerto: site map, sub-district map, NCP progress at 96.59% and market share table',
@@ -336,9 +340,10 @@ export const projects: Project[] = [
         { group: 'Learn path', file: 'app-review-demo.png', alt: 'Review, from the product demo: nine words ready to review, scheduled automatically, with the four strength stages' },
         { group: 'Learn path', file: 'app-grammar.jpg', alt: 'Grammar: first of ten daily questions, a fill-in on pronouns with four choices and a paid hint' },
         { group: 'Learn path', file: 'app-learning-path.jpg', alt: 'Progress page showing grammar mastery, the learning path stages and progress per category' },
-        { group: 'Play Zone', file: 'app-play-zone.jpg', alt: 'Play Zone page with the Vocabulary Adventure and Daily Arcade games' },
-        { group: 'Play Zone', file: 'app-adventure-island.jpg', alt: 'Vocabulary Adventure, the weekly island map with ten numbered checkpoints' },
-        { group: 'Play Zone', file: 'app-daily-arcade.jpg', alt: 'Daily Arcade page for the Vocabulary Dash challenge with the rules for the one daily attempt' },
+        { group: 'Play Zone', file: 'app-play-zone.png', alt: 'Play Zone page with the Vocabulary Adventure and Daily Arcade games, both open to play' },
+        { group: 'Play Zone', file: 'app-adventure-island.png', alt: 'Explorer Island in Vocabulary Adventure: the weekly island map with ten numbered checkpoints' },
+        { group: 'Play Zone', file: 'app-weekly-adventure.png', alt: 'Petualangan Mingguan: seven themed chapters, one per day, each with its own game mode' },
+        { group: 'Play Zone', file: 'app-daily-arcade.png', alt: 'Daily Arcade page for the Vocabulary Dash challenge with the rules for the one daily attempt' },
         { group: 'Video Shadowing', file: 'app-shadowing-session.jpg', alt: 'Video Shadowing tab with the video, playback controls and the sentence list with phonetics' },
         { group: 'Video Shadowing', file: 'app-video-dictation.jpg', alt: 'Dictation tab where the learner fills in missing words after hearing the sentence' },
         { group: 'Video Shadowing', file: 'app-video-ai-talk.jpg', alt: 'AI Talk tab for a conversation in English about the video with a tutor' },

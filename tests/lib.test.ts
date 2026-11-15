@@ -10,23 +10,25 @@ describe('gallery matching', () => {
   });
 
   it('is word-order tolerant and prefers the most specific rule', () => {
-    expect(matchFile('Porto Prepaid Region 1.jpg')).toEqual({ group: 'rural', rank: 2 });
+    expect(matchFile('Porto Prepaid Region 1.jpg')).toEqual({ group: 'prepaid', rank: 0 });
     expect(matchFile('porto-trade_1.jpg')).toEqual({ group: 'trade', rank: 2 });
     expect(matchFile('Trade 3.jpeg')).toEqual({ group: 'trade', rank: 1 });
-    expect(matchFile('PORTO BUSPLAN 2.jpg')).toEqual({ group: 'busplan', rank: 1 });
+    expect(matchFile('PORTO BUSPLAN 2.jpg')).toEqual({ group: 'busplan', rank: 2 });
+    expect(matchFile('Busplan Champions 2023.jpg')).toEqual({ group: 'busplan', rank: 0 });
     expect(matchFile('holiday.png').group).toBe('other');
   });
 
   it('maps every real source file in the required order', () => {
     const files = readdirSync(new URL('../src/assets/gallery/', import.meta.url));
     const g = groupFiles(files);
-    expect(g.rural).toEqual(['Region Team.jpg', 'Rural Region.jpg', 'Porto Prepaid Region 1.jpg']);
+    expect(g.rural).toEqual(['Region Team.jpg', 'Rural Region.jpg']);
+    expect(g.prepaid).toEqual(['Porto Prepaid Region 1.jpg']);
     expect(g.trade).toEqual([
       'Circle 1.jpeg', 'Circle 2.jpeg', 'Circle 3.jpg', 'Circle 4.jpg',
       'Trade 1.JPG', 'Trade 2.JPG', 'Trade 3.jpeg', 'Trade 4.jpeg',
       'Porto Trade 1.jpg',
     ]);
-    expect(g.busplan).toEqual(['Busplan 1.jpeg', 'Porto Busplan 2.jpg']);
+    expect(g.busplan).toEqual(['Busplan Champions 2023.jpg', 'Busplan 1.jpeg', 'Porto Busplan 2.jpg']);
     expect(g.mis).toEqual(['MIS 1.jpeg', 'MIS 2.jpeg', 'MIS 3.jpeg']);
     expect(g.other).toEqual([]);
   });

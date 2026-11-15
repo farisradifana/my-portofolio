@@ -1009,6 +1009,25 @@ h3 {
   height: 18px;
   fill: currentColor;
 }
+/* From tablet width up the icons stay on one line and shrink to fit it. */
+@media (min-width: 768px) {
+  .socials {
+    flex-wrap: nowrap;
+  }
+  .socials li {
+    flex: 0 1 44px;
+    min-width: 0;
+  }
+  .socials a {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .socials svg {
+    width: 42%;
+    height: 42%;
+  }
+}
 form.contact {
   display: grid;
   gap: 16px;
