@@ -1,22 +1,23 @@
 ---
-// Screenshot gallery for one project. Order and alt text come from the project
-// entry in src/data/site.ts; files live in src/assets/projects/<dir>/. Output
-// matches Gallery.astro (640px thumbnail, full version capped at 1600px, WebP)
-// so the same lightbox script picks it up.
+// Screenshot carousel for one project. Order, alt text and optional groups come
+// from the project entry in src/data/site.ts; files live in
+// src/assets/projects/<dir>/. Each slide is a plain link to the full image
+// (640px thumbnail, full version capped at 1600px, WebP), so the lightbox script
+// picks it up and the carousel still scrolls without JS.
 import type { ImageMetadata } from 'astro';
 import { getImage } from 'astro:assets';
 
 interface Props {
   title: string;
   dir: string;
-  images: readonly { file: string; alt: string }[];
+  images: readonly { file: string; alt: string; group?: string }[];
 }
 const { title, dir, images } = Astro.props;
 
 const modules = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/*/*.{png,jpg,jpeg}', { eager: true });
 
 const items = await Promise.all(
-  images.map(async ({ file, alt }) => {
+  images.map(async ({ file, alt, group }) => {
     const src = modules[`../assets/projects/${dir}/${file}`]?.default;
     if (!src) throw new Error(`Missing project image "${dir}/${file}"`);
     const thumbW = Math.min(640, src.width);
@@ -27,6 +28,7 @@ const items = await Promise.all(
     ]);
     return {
       alt,
+      group,
       thumb: thumb.src,
       thumbW,
       thumbH: Math.round((thumbW / src.width) * src.height),
@@ -36,17 +38,48 @@ const items = await Promise.all(
     };
   }),
 );
+
+// Groups in order of first appearance, each with the index of its first slide.
+const groups: { name: string; start: number; count: number }[] = [];
+items.forEach((item, i) => {
+  if (!item.group) return;
+  const found = groups.find((g) => g.name === item.group);
+  if (found) found.count += 1;
+  else groups.push({ name: item.group, start: i, count: 1 });
+});
 ---
 
-<p class="gallery-label">Screenshots · {items.length} {items.length === 1 ? 'image' : 'images'}</p>
-<ul class="gallery shots" data-gallery aria-label={`${title} screenshots`}>
+<div class="carousel" data-carousel>
+  <div class="car-head">
+    <p class="gallery-label">Screenshots · {items.length} {items.length === 1 ? 'image' : 'images'}</p>
+    <div class="car-nav">
+      <span class="car-count num" aria-live="polite">1 / {items.length}</span>
+      <button type="button" class="car-prev" aria-label={`Previous ${title} screenshot`}>&#8592;</button>
+      <button type="button" class="car-next" aria-label={`Next ${title} screenshot`}>&#8594;</button>
+    </div>
+  </div>
   {
-    items.map((item, i) => (
-      <li>
-        <a href={item.full} data-full data-w={item.fullW} data-h={item.fullH} aria-label={`Open image ${i + 1} of ${items.length}: ${item.alt}`}>
-          <img src={item.thumb} alt={item.alt} width={item.thumbW} height={item.thumbH} loading="lazy" decoding="async" />
-        </a>
-      </li>
-    ))
+    groups.length > 0 && (
+      <ul class="car-groups" aria-label={`${title} screenshot groups`}>
+        {groups.map((g) => (
+          <li>
+            <button type="button" data-start={g.start} aria-pressed={g.start === 0 ? 'true' : 'false'}>
+              {g.name} <span class="num">{g.count}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    )
   }
-</ul>
+  <ul class="car-track" data-gallery aria-label={`${title} screenshots`} tabindex="0">
+    {
+      items.map((item, i) => (
+        <li data-group={item.group} class={item.thumbH > item.thumbW ? 'tall' : undefined}>
+          <a href={item.full} data-full data-w={item.fullW} data-h={item.fullH} aria-label={`Open image ${i + 1} of ${items.length}: ${item.alt}`}>
+            <img src={item.thumb} alt={item.alt} width={item.thumbW} height={item.thumbH} loading="lazy" decoding="async" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

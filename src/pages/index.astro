@@ -75,7 +75,8 @@ const fmt = new Intl.NumberFormat('en-US');
   <section class="section alt" id="expertise" aria-labelledby="expertise-title">
     <div class="wrap">
       <p class="eyebrow">Expertise</p>
-      <h2 id="expertise-title">What I do</h2>
+      <h2 id="expertise-title">Turning data into action.</h2>
+      <p class="lede">Combining analytical thinking, business understanding, and technology to create meaningful impact.</p>
       <ul class="cards reveal">
         {
           expertise.map((e) => (
@@ -216,6 +217,12 @@ const fmt = new Intl.NumberFormat('en-US');
                       <h4>Flow</h4>
                       <ol>{p.flow?.map((x) => <li>{x}</li>)}</ol>
                     </div>
+                    {p.automation && (
+                      <div class="wide">
+                        <h4>Automation</h4>
+                        <ul>{p.automation.map((x) => <li>{x}</li>)}</ul>
+                      </div>
+                    )}
                   </div>
                 )}
                 {p.gallery && <ProjectGallery title={p.title} dir={p.gallery.dir} images={p.gallery.images} />}
@@ -278,17 +285,19 @@ const fmt = new Intl.NumberFormat('en-US');
         class="reveal"
         src={kelingking}
         alt={beyond.alt}
-        width={1200}
-        widths={[480, 800, 1200]}
-        sizes="(min-width: 900px) 660px, 92vw"
+        width={720}
+        widths={[240, 480, 720]}
+        sizes="(min-width: 640px) 240px, 180px"
         format="webp"
         quality={65}
         loading="lazy"
       />
       <div class="reveal">
-        <p class="eyebrow">Beyond work</p>
+        <p class="eyebrow">Beyond Work</p>
         <h2 id="beyond-title">{beyond.title}</h2>
         <p>{beyond.text}</p>
+        <hr class="beyond-rule" />
+        <p class="beyond-note">{beyond.note}</p>
       </div>
     </div>
   </section>
@@ -362,6 +371,7 @@ const fmt = new Intl.NumberFormat('en-US');
 
   <script>
     import '../scripts/lightbox.ts';
+    import '../scripts/carousel.ts';
     import '../scripts/contact.ts';
   </script>
 </Base>

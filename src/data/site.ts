@@ -245,7 +245,10 @@ export interface Project {
   infrastructure?: string[];
   flow?: string[];
   note?: string;
-  gallery?: { dir: string; images: { file: string; alt: string }[] };
+  /** Scheduled jobs and other unattended work. */
+  automation?: string[];
+  /** Images with a group are shown under that group in the carousel. */
+  gallery?: { dir: string; images: { file: string; alt: string; group?: string }[] };
 }
 
 export const projects: Project[] = [
@@ -300,6 +303,12 @@ export const projects: Project[] = [
       'AI Labs call Claude and Gemini models and are metered by credits. Word audio is generated ahead of time.',
       'Vitest unit tests plus database tests that exercise the security policies.',
     ],
+    automation: [
+      'Cloudflare Cron Triggers call the app routes with a shared secret: a daily operations check, Telegram vocabulary lessons three times a day, and a social metrics sync at 18:30 WIB.',
+      'Scheduled jobs in Postgres (pg_cron) close the Daily Arcade ranking each night, award the weekly leaderboard on Monday and queue push reminders three times a day.',
+      'A GitHub Actions workflow adds new speaking content once a day and reports the result to the team Telegram group.',
+      'When a scheduled run has not started, the team gets a Telegram alert with a run-now button.',
+    ],
     flow: [
       'The learner signs in with Google and picks a level, mapped to CEFR A1 to C2.',
       'Daily 10: ten new words through four exercise types, graded on the server.',
@@ -315,24 +324,27 @@ export const projects: Project[] = [
     gallery: {
       dir: 'kata10',
       images: [
-        { file: 'landing-1-hero.png', alt: 'Kata10 landing page hero with the ten words a day promise' },
-        { file: 'landing-2-how-it-works.png', alt: 'Landing page section explaining how daily learning works' },
-        { file: 'landing-3-grammar.png', alt: 'Landing page section on the ten daily grammar questions' },
-        { file: 'landing-4-leaderboard.png', alt: 'Landing page section showing the weekly leaderboard' },
-        { file: 'landing-5-speaking.png', alt: 'Landing page section on speaking practice' },
-        { file: 'landing-6-play-zone.png', alt: 'Landing page section introducing the Play Zone games' },
-        { file: 'landing-7-ai-labs.png', alt: 'Landing page section listing the AI Labs tools' },
-        { file: 'landing-8-cta.png', alt: 'Landing page closing section with the sign-up call to action' },
-        { file: 'app-lesson-card.png', alt: 'Daily lesson card for the word achieve with a meaning question and pronunciation practice' },
-        { file: 'app-grammar-card.png', alt: 'Daily grammar question on the present simple with the rule shown after the answer' },
-        { file: 'app-learning-path.jpg', alt: 'Progress page showing grammar mastery, the learning path stages and progress per category' },
-        { file: 'app-play-zone.jpg', alt: 'Play Zone page with the Vocabulary Adventure and Daily Arcade games' },
-        { file: 'app-shadowing-session.jpg', alt: 'Video Shadowing tab with the video, playback controls and the sentence list with phonetics' },
-        { file: 'app-video-dictation.jpg', alt: 'Dictation tab where the learner fills in missing words after hearing the sentence' },
-        { file: 'app-video-ai-talk.jpg', alt: 'AI Talk tab for a conversation in English about the video with a tutor' },
-        { file: 'app-video-vocabulary.jpg', alt: 'Vocabulary tab listing words and phrases from the video by level, with a practice set' },
-        { file: 'app-video-grammar.jpg', alt: 'Grammar tab listing grammar structures found in the video with example sentences' },
-        { file: 'app-marketing-dashboard.jpg', alt: 'Admin marketing dashboard with posts, views and interactions for Instagram, Facebook, Threads and TikTok' },
+        { group: 'Landing page', file: 'landing-1-hero.png', alt: 'Kata10 landing page hero with the ten words a day promise' },
+        { group: 'Landing page', file: 'landing-2-how-it-works.png', alt: 'Landing page section explaining how daily learning works' },
+        { group: 'Landing page', file: 'landing-3-grammar.png', alt: 'Landing page section on the ten daily grammar questions' },
+        { group: 'Landing page', file: 'landing-4-leaderboard.png', alt: 'Landing page section showing the weekly leaderboard' },
+        { group: 'Landing page', file: 'landing-5-speaking.png', alt: 'Landing page section on speaking practice' },
+        { group: 'Landing page', file: 'landing-6-play-zone.png', alt: 'Landing page section introducing the Play Zone games' },
+        { group: 'Landing page', file: 'landing-7-ai-labs.png', alt: 'Landing page section listing the AI Labs tools' },
+        { group: 'Landing page', file: 'landing-8-cta.png', alt: 'Landing page closing section with the sign-up call to action' },
+        { group: 'Learn path', file: 'app-belajar-demo.png', alt: 'Belajar, from the product demo: word card for improve with its meaning quiz answered' },
+        { group: 'Learn path', file: 'app-review-demo.png', alt: 'Review, from the product demo: nine words ready to review, scheduled automatically, with the four strength stages' },
+        { group: 'Learn path', file: 'app-grammar.jpg', alt: 'Grammar: first of ten daily questions, a fill-in on pronouns with four choices and a paid hint' },
+        { group: 'Learn path', file: 'app-learning-path.jpg', alt: 'Progress page showing grammar mastery, the learning path stages and progress per category' },
+        { group: 'Play Zone', file: 'app-play-zone.jpg', alt: 'Play Zone page with the Vocabulary Adventure and Daily Arcade games' },
+        { group: 'Play Zone', file: 'app-adventure-island.jpg', alt: 'Vocabulary Adventure, the weekly island map with ten numbered checkpoints' },
+        { group: 'Play Zone', file: 'app-daily-arcade.jpg', alt: 'Daily Arcade page for the Vocabulary Dash challenge with the rules for the one daily attempt' },
+        { group: 'Video Shadowing', file: 'app-shadowing-session.jpg', alt: 'Video Shadowing tab with the video, playback controls and the sentence list with phonetics' },
+        { group: 'Video Shadowing', file: 'app-video-dictation.jpg', alt: 'Dictation tab where the learner fills in missing words after hearing the sentence' },
+        { group: 'Video Shadowing', file: 'app-video-ai-talk.jpg', alt: 'AI Talk tab for a conversation in English about the video with a tutor' },
+        { group: 'Video Shadowing', file: 'app-video-vocabulary.jpg', alt: 'Vocabulary tab listing words and phrases from the video by level, with a practice set' },
+        { group: 'Video Shadowing', file: 'app-video-grammar.jpg', alt: 'Grammar tab listing grammar structures found in the video with example sentences' },
+        { group: 'Marketing dashboard', file: 'app-marketing-dashboard.jpg', alt: 'Admin marketing dashboard with posts, views and interactions for Instagram, Facebook, Threads and TikTok' },
       ],
     },
   },
@@ -385,7 +397,8 @@ export const certifications = [
 ];
 
 export const beyond = {
-  title: 'Off the clock',
-  text: 'Away from the dashboards, usually somewhere with a long view. This one is Kelingking Beach on Nusa Penida.',
+  title: 'Life beyond the dashboards.',
+  text: 'I enjoy exploring new places, experiencing different perspectives, and taking time to recharge. Because life is more than just work and numbers.',
+  note: 'A little reminder to enjoy the journey.',
   alt: 'Faris standing with arms crossed at the cliff-top viewpoint above Kelingking Beach, Nusa Penida, turquoise sea below',
 };

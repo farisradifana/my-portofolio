@@ -914,8 +914,8 @@ h3 {
   align-items: center;
 }
 .beyond img {
-  width: 100%;
-  max-height: 640px;
+  width: 180px;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 70%;
   border-radius: var(--radius);
@@ -926,10 +926,24 @@ h3 {
   color: var(--muted);
   font-size: 17px;
 }
-@media (min-width: 900px) {
+.beyond .beyond-rule {
+  width: 100%;
+  max-width: 44ch;
+  height: 1px;
+  margin-top: 24px;
+  border: 0;
+  background: var(--line);
+}
+.beyond .beyond-note {
+  font-size: 15px;
+}
+@media (min-width: 640px) {
   .beyond {
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 64px;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+  }
+  .beyond img {
+    width: 240px;
   }
 }
 
@@ -1114,6 +1128,108 @@ form.contact {
   .gallery.shots {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
+}
+
+/* Project screenshot carousel: a scroll-snap strip with buttons and group shortcuts. */
+.car-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+.car-head .gallery-label {
+  margin-top: 0;
+}
+.car-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.car-count {
+  margin-right: 4px;
+  white-space: nowrap;
+  font: 400 13px/1 var(--font-mono);
+  color: var(--muted);
+}
+.car-nav button,
+.car-groups button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.car-nav button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+}
+.car-nav button:hover:not(:disabled),
+.car-groups button:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+.car-nav button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.car-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.car-groups button {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1;
+}
+.car-groups button .num {
+  margin-left: 4px;
+  color: var(--muted);
+}
+.car-groups button[aria-pressed='true'] {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+.car-track {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding-bottom: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+.car-track li {
+  flex: 0 0 min(82%, 600px);
+  scroll-snap-align: start;
+}
+.car-track a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  aspect-ratio: 16 / 10;
+}
+.car-track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.car-track .tall img {
+  object-fit: contain;
+  object-position: center;
+}
+.project-detail .wide {
+  grid-column: 1 / -1;
 }
 
 /* Author display rules must not un-hide elements with the hidden attribute. */
