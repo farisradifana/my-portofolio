@@ -1,0 +1,52 @@
+---
+// Screenshot gallery for one project. Order and alt text come from the project
+// entry in src/data/site.ts; files live in src/assets/projects/<dir>/. Output
+// matches Gallery.astro (640px thumbnail, full version capped at 1600px, WebP)
+// so the same lightbox script picks it up.
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  title: string;
+  dir: string;
+  images: readonly { file: string; alt: string }[];
+}
+const { title, dir, images } = Astro.props;
+
+const modules = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/*/*.{png,jpg,jpeg}', { eager: true });
+
+const items = await Promise.all(
+  images.map(async ({ file, alt }) => {
+    const src = modules[`../assets/projects/${dir}/${file}`]?.default;
+    if (!src) throw new Error(`Missing project image "${dir}/${file}"`);
+    const thumbW = Math.min(640, src.width);
+    const fullW = Math.min(1600, src.width);
+    const [thumb, full] = await Promise.all([
+      getImage({ src, width: thumbW, format: 'webp', quality: 72 }),
+      getImage({ src, width: fullW, format: 'webp', quality: 80 }),
+    ]);
+    return {
+      alt,
+      thumb: thumb.src,
+      thumbW,
+      thumbH: Math.round((thumbW / src.width) * src.height),
+      full: full.src,
+      fullW,
+      fullH: Math.round((fullW / src.width) * src.height),
+    };
+  }),
+);
+---
+
+<p class="gallery-label">Screenshots · {items.length} {items.length === 1 ? 'image' : 'images'}</p>
+<ul class="gallery shots" data-gallery aria-label={`${title} screenshots`}>
+  {
+    items.map((item, i) => (
+      <li>
+        <a href={item.full} data-full data-w={item.fullW} data-h={item.fullH} aria-label={`Open image ${i + 1} of ${items.length}: ${item.alt}`}>
+          <img src={item.thumb} alt={item.alt} width={item.thumbW} height={item.thumbH} loading="lazy" decoding="async" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
