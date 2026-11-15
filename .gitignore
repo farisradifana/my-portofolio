@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.env
+.env.*
+!.env.example
+.dev.vars
+*.log
+# credentials must never land here
+*service-account*.json
+apply-job-seeker-*.json
+.validation-logs/
