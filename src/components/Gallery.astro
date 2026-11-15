@@ -43,7 +43,6 @@ const items = await Promise.all(
 {
   items.length > 0 && (
     <>
-      <p class="gallery-label">Work samples and team · {items.length} {items.length === 1 ? 'image' : 'images'}</p>
       <ul class="gallery" data-gallery aria-label={`${galleryTitles[group]} gallery`}>
         {items.map((item, i) => (
           <li>

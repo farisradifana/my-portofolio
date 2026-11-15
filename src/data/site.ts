@@ -30,8 +30,8 @@ export const nav = [
 
 export const hero = {
   paragraphs: [
-    'I turn sales, distribution and budget data into dashboards and reports that managers use to decide.',
-    'Three years in commercial planning at Indosat, working in SQL, Power BI and Python, after five years measuring mobile networks in the field.',
+    'I turn commercial performance into data-driven business strategies with dashboards and reports that managers use to decide.',
+    'Three years in commercial planning, working in SQL, Power BI and Python, after five years measuring mobile networks in the field.',
   ],
 };
 
@@ -334,8 +334,7 @@ export const projects: Project[] = [
         { group: 'Landing page', file: 'landing-4-leaderboard.png', alt: 'Landing page section showing the weekly leaderboard' },
         { group: 'Landing page', file: 'landing-5-speaking.png', alt: 'Landing page section on speaking practice' },
         { group: 'Landing page', file: 'landing-6-play-zone.png', alt: 'Landing page section introducing the Play Zone games' },
-        { group: 'Landing page', file: 'landing-7-ai-labs.png', alt: 'Landing page section listing the AI Labs tools' },
-        { group: 'Landing page', file: 'landing-8-cta.png', alt: 'Landing page closing section with the sign-up call to action' },
+        { group: 'Landing page', file: 'landing-7-ai-labs.png', alt: 'Landing page section listing the five AI Labs tools with their credit cost' },
         { group: 'Learn path', file: 'app-belajar-demo.png', alt: 'Belajar, from the product demo: word card for improve with its meaning quiz answered' },
         { group: 'Learn path', file: 'app-review-demo.png', alt: 'Review, from the product demo: nine words ready to review, scheduled automatically, with the four strength stages' },
         { group: 'Learn path', file: 'app-grammar.jpg', alt: 'Grammar: first of ten daily questions, a fill-in on pronouns with four choices and a paid hint' },
