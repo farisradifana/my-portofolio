@@ -338,7 +338,7 @@ export const projects: Project[] = [
         { group: 'Learn path', file: 'app-belajar-demo.png', alt: 'Belajar, from the product demo: word card for improve with its meaning quiz answered' },
         { group: 'Learn path', file: 'app-review-demo.png', alt: 'Review, from the product demo: nine words ready to review, scheduled automatically, with the four strength stages' },
         { group: 'Learn path', file: 'app-grammar.jpg', alt: 'Grammar: first of ten daily questions, a fill-in on pronouns with four choices and a paid hint' },
-        { group: 'Learn path', file: 'app-learning-path.jpg', alt: 'Progress page showing grammar mastery, the learning path stages and progress per category' },
+        { group: 'Learn path', file: 'app-learning-path.png', alt: 'Progress page with streak, vocabulary strength, daily activity, grammar mastery, the learning path stages and progress per category' },
         { group: 'Play Zone', file: 'app-play-zone.png', alt: 'Play Zone page with the Vocabulary Adventure and Daily Arcade games, both open to play' },
         { group: 'Play Zone', file: 'app-adventure-island.png', alt: 'Explorer Island in Vocabulary Adventure: the weekly island map with ten numbered checkpoints' },
         { group: 'Play Zone', file: 'app-weekly-adventure.png', alt: 'Petualangan Mingguan: seven themed chapters, one per day, each with its own game mode' },
