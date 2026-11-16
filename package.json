@@ -10,7 +10,8 @@
     "test": "vitest run",
     "deploy": "astro build && wrangler deploy",
     "sync-tracker": "node --env-file-if-exists=.env scripts/sync-tracker.mjs",
-    "export-public": "node scripts/export-public.mjs"
+    "export-public": "node --env-file-if-exists=.env scripts/export-public.mjs",
+    "publish-dashboard": "node --env-file-if-exists=.env scripts/publish-dashboard.mjs"
   },
   "dependencies": {
     "astro": "^7.4.12",
