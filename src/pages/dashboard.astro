@@ -1,8 +1,8 @@
 ---
 // Job application dashboard. Unlisted: noindex, not in the sitemap, and only in
-// the navbar when site.showDashboardInNav is on. Without a read token it shows
-// the exported tracker rows with company names cut to initials (see
-// scripts/export-public.mjs), or generated demo data while there are none.
+// the navbar when site.showDashboardInNav is on. It shows the exported tracker
+// rows with company names cut to initials (see scripts/export-public.mjs), or
+// generated demo data while there are none.
 import Base from '../layouts/Base.astro';
 import '../styles/dashboard.css';
 import { STATUSES } from '../lib/metrics';
@@ -17,25 +17,6 @@ import { STATUSES } from '../lib/metrics';
       <p class="lede">
         Every application my job-search automation sends, tracked from first click to final answer.
       </p>
-
-      <section class="mode" aria-label="Data source">
-        <span class="badge" id="mode-badge">Demo data</span>
-        <p id="mode-text">
-          <strong>These numbers are generated, not real.</strong> The tracker has no submitted applications yet. Real rows replace
-          this demo once there are some, with company names shortened to initials.
-        </p>
-        <button class="btn btn-ghost btn-sm" type="button" id="mode-toggle" aria-expanded="false" aria-controls="token-form">
-          Open private view
-        </button>
-        <form class="token" id="token-form" hidden>
-          <div class="field">
-            <label for="token">Access token</label>
-            <input id="token" name="token" type="password" autocomplete="off" spellcheck="false" required />
-          </div>
-          <button class="btn btn-primary" type="submit"><span>Load my data</span></button>
-          <p class="token-status" id="token-status" role="status" aria-live="polite"></p>
-        </form>
-      </section>
 
       <form class="filters" id="filters" aria-label="Filters">
         <fieldset>

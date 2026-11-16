@@ -3,11 +3,12 @@
 import { demoApplications } from '../lib/demo';
 import publicRows from '../data/applications.public.json';
 import {
-  STATUSES, applyFilters, countBy, daysBetween, funnel, insights, kpis, pct, perDay, statusDistribution, toCsv,
-  type Application, type Bucket, type Status,
+  applyFilters, countBy, daysBetween, funnel, insights, kpis, pct, perDay, statusDistribution, toCsv,
+  type Application, type Bucket,
 } from '../lib/metrics';
 
-const TOKEN_KEY = 'dashboard-read-token';
+// Key the removed private view used to keep a read token in sessionStorage.
+const OLD_TOKEN_KEY = 'dashboard-read-token';
 const PAGE_SIZES = [15, 50, 100, 200];
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const DAY = 86_400_000;
@@ -48,7 +49,7 @@ const COLUMNS: [SortKey, string][] = [
 ];
 
 let all: Application[] = [];
-let mode: 'demo' | 'public' | 'private' = 'demo';
+let mode: 'demo' | 'public' = 'demo';
 let view: Application[] = [];
 let sort: { key: SortKey; dir: 1 | -1 } = { key: 'applied_at', dir: -1 };
 let page = 0;
@@ -438,7 +439,7 @@ function render() {
   drawTable();
 }
 
-function setData(apps: Application[], next: 'demo' | 'public' | 'private') {
+function setData(apps: Application[], next: 'demo' | 'public') {
   all = apps;
   mode = next;
   page = 0;
@@ -447,84 +448,9 @@ function setData(apps: Application[], next: 'demo' | 'public' | 'private') {
   const names = countBy(all, (a) => a.platform).map((b) => b.label).filter((n) => n !== 'Unknown');
   select.replaceChildren(new Option('All platforms', ''), ...names.map((n) => new Option(n, n)));
   select.value = names.includes(chosen) ? chosen : '';
-
-  const priv = mode === 'private';
-  $('mode-badge').textContent = priv ? 'Private data' : mode === 'public' ? 'Tracker data' : 'Demo data';
-  const text = $('mode-text');
-  if (priv) {
-    text.replaceChildren(
-      el('strong', '', 'Live data from the application tracker.'),
-      document.createTextNode(` Loaded at ${pad(new Date().getHours())}:${pad(new Date().getMinutes())}. The token stays in this tab only.`),
-    );
-  } else if (mode === 'public') {
-    text.replaceChildren(
-      el('strong', '', 'Real applications from the tracker.'),
-      document.createTextNode(' Company names are shortened to initials; links and notes are left out.'),
-    );
-  } else {
-    text.replaceChildren(
-      el('strong', '', 'These numbers are generated, not real.'),
-      document.createTextNode(' The tracker has no submitted applications yet. Real rows replace this demo once there are some, with company names shortened to initials.'),
-    );
-  }
-  const toggle = $('mode-toggle');
-  toggle.textContent = priv ? 'Back to public view' : 'Open private view';
-  toggle.setAttribute('aria-expanded', 'false');
-  $('token-form').hidden = true;
   viewEl.setAttribute('aria-busy', 'false');
   render();
 }
-
-// ---- Private data -----------------------------------------------------------
-
-const isStatus = (v: unknown): v is Status => (STATUSES as readonly unknown[]).includes(v);
-
-async function loadPrivate(token: string): Promise<'ok' | 'denied' | 'failed'> {
-  viewEl.setAttribute('aria-busy', 'true');
-  try {
-    const res = await fetch('/api/applications', { headers: { authorization: `Bearer ${token}` }, cache: 'no-store' });
-    if (res.status === 401 || res.status === 403) return 'denied';
-    if (!res.ok) return 'failed';
-    const body = (await res.json()) as { applications?: unknown };
-    if (!Array.isArray(body.applications)) return 'failed';
-    const str = (v: unknown) => (typeof v === 'string' ? v : '');
-    const rows: Application[] = [];
-    for (const r of body.applications as Record<string, unknown>[]) {
-      if (!r || !/^\d{4}-\d{2}-\d{2}/.test(str(r.applied_at)) || !isStatus(r.status)) continue;
-      const applied = str(r.applied_at).slice(0, 10);
-      rows.push({
-        id: str(r.id), applied_at: applied, company: str(r.company), role: str(r.role), platform: str(r.platform),
-        location: str(r.location), work_type: str(r.work_type), seniority: str(r.seniority), source_url: str(r.source_url),
-        status: r.status, last_update: /^\d{4}-\d{2}-\d{2}/.test(str(r.last_update)) ? str(r.last_update).slice(0, 10) : applied,
-        notes: str(r.notes),
-      });
-    }
-    setData(rows, 'private');
-    return 'ok';
-  } catch {
-    return 'failed';
-  } finally {
-    viewEl.setAttribute('aria-busy', 'false');
-  }
-}
-
-const storage = {
-  get: () => {
-    try {
-      return sessionStorage.getItem(TOKEN_KEY) ?? '';
-    } catch {
-      return '';
-    }
-  },
-  set: (v: string) => {
-    try {
-      if (v) sessionStorage.setItem(TOKEN_KEY, v);
-      else sessionStorage.removeItem(TOKEN_KEY);
-    } catch {
-      /* storage blocked: the token then lives only for this page load */
-    }
-  },
-};
 
 // Public view: the exported tracker rows (company initials only). The generated
 // demo stands in only while the tracker has no submitted applications.
@@ -532,35 +458,6 @@ const publicApps = publicRows as unknown as Application[];
 const showDemo = () => (publicApps.length > 0 ? setData(publicApps, 'public') : setData(demoApplications(today), 'demo'));
 
 // ---- Events -----------------------------------------------------------------
-
-$('mode-toggle').addEventListener('click', () => {
-  if (mode === 'private') {
-    storage.set('');
-    showDemo();
-    return;
-  }
-  const form = $('token-form');
-  form.hidden = !form.hidden;
-  $('mode-toggle').setAttribute('aria-expanded', String(!form.hidden));
-  if (!form.hidden) $<HTMLInputElement>('token').focus();
-});
-
-$<HTMLFormElement>('token-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const input = $<HTMLInputElement>('token');
-  const token = input.value.trim();
-  const status = $('token-status');
-  if (!token) return;
-  status.textContent = 'Loading…';
-  const result = await loadPrivate(token);
-  if (result === 'ok') {
-    storage.set(token);
-    input.value = '';
-    status.textContent = '';
-  } else {
-    status.textContent = result === 'denied' ? 'That token was not accepted.' : 'Could not load the data. Check the connection and try again.';
-  }
-});
 
 let searchTimer = 0;
 filtersForm.addEventListener('input', (e) => {
@@ -624,11 +521,10 @@ window.addEventListener('scroll', hideTip, { passive: true });
 
 // ---- Start ------------------------------------------------------------------
 
-const saved = storage.get();
-if (saved) {
-  loadPrivate(saved).then((result) => {
-    if (result === 'ok') return;
-    if (result === 'denied') storage.set('');
-    showDemo();
-  });
-} else showDemo();
+// Drop any read token a visitor saved before the private view was removed.
+try {
+  sessionStorage.removeItem(OLD_TOKEN_KEY);
+} catch {
+  /* storage blocked: nothing was saved */
+}
+showDemo();
