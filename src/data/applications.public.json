@@ -754,5 +754,33 @@
     "status": "Applied",
     "last_update": "2026-11-16",
     "notes": ""
+  },
+  {
+    "id": "app-0055",
+    "applied_at": "2026-11-19",
+    "company": "OIM",
+    "role": "Data Business Analyst (Banking)",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0056",
+    "applied_at": "2026-11-19",
+    "company": "FT",
+    "role": "Finance Data Analyst (Mandarin Speaker)",
+    "platform": "dealls",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
   }
 ]
