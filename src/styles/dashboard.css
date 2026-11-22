@@ -374,13 +374,10 @@
   list-style: none;
   font-size: 14px;
 }
-/* Status card: title on top, donut and legend centred in the space below. */
+/* Status card: donut and legend centred in the space below the title. */
 .status-card {
   display: flex;
   flex-direction: column;
-}
-.status-card .card-head {
-  justify-content: center;
 }
 .status-card .donut {
   flex: 1;
