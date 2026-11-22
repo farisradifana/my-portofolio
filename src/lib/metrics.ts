@@ -33,6 +33,22 @@ const CLOSED: ReadonlySet<Status> = new Set(['Rejected', 'Ghosted']);
 
 export const pct = (part: number, whole: number) => (whole === 0 ? null : (part / whole) * 100);
 
+/** Share for chart labels: one decimal below 10%, except a plain 0%. */
+export function formatShare(part: number, whole: number): string {
+  const p = pct(part, whole);
+  if (p === null) return '';
+  return p > 0 && p < 10 ? `${p.toFixed(1)}%` : `${Math.round(p)}%`;
+}
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+export const formatDate = (iso: string) => dateFormat.format(new Date(toDay(iso)));
+
+// The tracker stores job boards in lower case.
+const PLATFORM_NAMES = new Map(
+  ['Jobstreet', 'LinkedIn', 'Glints', 'Dealls', 'Indeed', 'Email', 'Kalibrr'].map((name) => [name.toLowerCase(), name]),
+);
+export const platformName = (value: string) => PLATFORM_NAMES.get(value.trim().toLowerCase()) ?? value;
+
 export interface Kpis {
   total: number;
   thisWeek: number;
@@ -100,6 +116,16 @@ export function countBy(apps: Application[], key: (a: Application) => string, li
   return limit ? out.slice(0, limit) : out;
 }
 
+/** Roles grouped regardless of case and spacing, each labelled with its most common spelling. */
+export function countRoles(apps: Application[], limit?: number): Bucket[] {
+  const clean = (role: string) => role.trim().replace(/\s+/g, ' ');
+  const spelling = new Map<string, string>();
+  for (const { label } of countBy(apps, (a) => clean(a.role))) {
+    if (!spelling.has(label.toLowerCase())) spelling.set(label.toLowerCase(), label);
+  }
+  return countBy(apps, (a) => spelling.get(clean(a.role).toLowerCase()) ?? '', limit);
+}
+
 /**
  * Applications that reached at least each stage. Rejected/Ghosted rows do not
  * record how far they got, so they count toward "Applied" only.
@@ -122,6 +148,8 @@ export function statusDistribution(apps: Application[]): Bucket[] {
 
 const MIN_FOR_INSIGHTS = 10;
 const MIN_PER_PLATFORM = 5;
+// A weekday pattern needs about two weeks of days with applications.
+const MIN_ACTIVE_DAYS = 14;
 const round = (n: number) => Math.round(n);
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -177,7 +205,8 @@ export function insights(apps: Application[], today: string): string[] {
 
   // Busiest weekday.
   const byWeekday = countBy(apps, (a) => WEEKDAYS[new Date(toDay(a.applied_at)).getUTCDay()]!);
-  if (byWeekday[0] && byWeekday.length > 1) {
+  const activeDays = new Set(apps.map((a) => a.applied_at.slice(0, 10))).size;
+  if (byWeekday[0] && byWeekday.length > 1 && activeDays >= MIN_ACTIVE_DAYS) {
     out.push(`${byWeekday[0].label} is the busiest day, with ${round(pct(byWeekday[0].count, total)!)}% of applications.`);
   }
 

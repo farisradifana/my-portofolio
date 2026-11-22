@@ -33,7 +33,7 @@
 }
 
 .dash {
-  padding: calc(var(--nav-h) + 40px) 0 96px;
+  padding: 40px 0 96px;
 }
 .dash h1 {
   font-size: clamp(30px, 4.5vw, 44px);
@@ -50,7 +50,7 @@
 .filters label,
 .filters legend {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   padding: 0;
   font-size: 13px;
   font-weight: 500;
@@ -64,6 +64,8 @@
 .filters .control {
   width: auto;
   min-width: 160px;
+  height: 44px;
+  padding: 0 12px;
 }
 .filters .grow {
   flex: 1 1 220px;
@@ -73,20 +75,23 @@
 }
 .seg {
   display: inline-flex;
+  height: 44px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
   overflow: hidden;
 }
 .seg label {
+  display: flex;
   margin: 0;
   color: var(--muted);
   cursor: pointer;
 }
 .seg span {
-  display: block;
+  display: grid;
+  place-items: center;
   min-width: 44px;
-  padding: 10px 14px;
+  padding: 0 12px;
   text-align: center;
   font-size: 14px;
   line-height: 22px;
@@ -113,7 +118,8 @@
 
 .kpis {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  /* Six tiles: only column counts that divide six, so no cell is left blank. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   margin-top: 24px;
   border: 1px solid var(--line);
@@ -122,8 +128,12 @@
   overflow: hidden;
 }
 .kpis div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 16px;
   background: var(--surface);
+  text-align: center;
 }
 .kpis dt {
   font-size: 13px;
@@ -135,9 +145,19 @@
   font-variant-numeric: tabular-nums;
 }
 .kpis dd small {
-  margin-left: 2px;
+  margin-left: 4px;
   font-size: 16px;
   color: var(--muted);
+}
+@media (min-width: 600px) {
+  .kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .kpis {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 
 .grid {
@@ -182,8 +202,10 @@
   font-size: 13px;
   color: var(--muted);
 }
+.card .seg {
+  height: 36px;
+}
 .card .seg span {
-  padding: 5px 12px;
   font-size: 13px;
 }
 .empty {
@@ -254,7 +276,7 @@
   position: fixed;
   z-index: 60;
   max-width: 260px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--bg-2);
@@ -278,7 +300,7 @@
 /* Horizontal bars: platform, companies, roles, funnel */
 .hbars {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   padding: 0;
   list-style: none;
 }
@@ -352,11 +374,49 @@
   list-style: none;
   font-size: 14px;
 }
+/* Status card: title on top, donut and legend centred in the space below. */
+.status-card {
+  display: flex;
+  flex-direction: column;
+}
+.status-card .card-head {
+  justify-content: center;
+}
+.status-card .donut {
+  flex: 1;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.status-card .legend {
+  flex: none;
+  width: max-content;
+  min-width: 180px;
+  max-width: 100%;
+}
+/* 208px fills the line chart's row without making it taller. */
+@media (min-width: 600px) {
+  .status-card .donut svg {
+    width: 208px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+/* Side by side down to 640px: any narrower and the line chart, which needs 280px to draw, no longer fits. */
+@media (min-width: 640px) and (max-width: 899.98px) {
+  .card.time-card {
+    grid-column: span 7;
+  }
+  .card.status-card {
+    grid-column: span 5;
+  }
+}
 .legend li {
   display: grid;
   grid-template-columns: 12px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .swatch {
   width: 12px;
@@ -435,14 +495,24 @@
 }
 .dash th,
 .dash td {
-  padding: 10px 12px 10px 0;
+  padding: 8px;
   border-bottom: 1px solid var(--line);
   text-align: left;
   vertical-align: top;
 }
+.dash tr > :first-child {
+  padding-left: 0;
+}
+.dash tr > :last-child {
+  padding-right: 0;
+}
+.dash th,
+.dash td.center {
+  text-align: center;
+}
 .dash th {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -450,7 +520,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  min-height: 32px;
+  min-height: 36px;
   padding: 0;
   border: 0;
   background: none;
@@ -458,8 +528,17 @@
   font: inherit;
   cursor: pointer;
 }
+.dash th button::before,
 .dash th button::after {
   content: '↕';
+  width: 12px;
+  text-align: center;
+}
+/* An invisible twin of the arrow, so the label itself sits on the column's centre. */
+.dash th button::before {
+  visibility: hidden;
+}
+.dash th button::after {
   opacity: 0.4;
 }
 .dash th[aria-sort='ascending'] button::after {
@@ -520,8 +599,8 @@
   margin-right: 4px;
 }
 .page-size select {
-  min-height: 36px;
-  padding: 6px 8px;
+  height: 36px;
+  padding: 0 8px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface, transparent);
@@ -532,7 +611,7 @@
 }
 .btn-sm {
   min-height: 36px;
-  padding: 6px 12px;
+  padding: 0 12px;
   font-size: 14px;
 }
 .btn[disabled] {

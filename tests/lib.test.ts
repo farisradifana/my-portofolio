@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { readdirSync } from 'node:fs';
 import { groupFiles, matchFile, normalizeName } from '../src/lib/gallery-match';
-import { applyFilters, funnel, insights, kpis, perDay, toCsv, type Application } from '../src/lib/metrics';
+import {
+  applyFilters, countRoles, formatDate, formatShare, funnel, insights, kpis, perDay, platformName, toCsv, type Application,
+} from '../src/lib/metrics';
 import { demoApplications } from '../src/lib/demo';
 
 describe('gallery matching', () => {
@@ -96,6 +98,36 @@ describe('metrics', () => {
     const csv = toCsv(apps);
     expect(csv).toContain('"A, ""B"""');
     expect(csv).toContain("'=SUM(A1)");
+  });
+
+  it('formats table dates without a weekday', () => {
+    expect(formatDate('2026-11-22')).toBe('22 Nov 2026');
+  });
+
+  it('writes a zero share as 0%', () => {
+    expect(formatShare(0, 90)).toBe('0%');
+    expect(formatShare(1, 90)).toBe('1.1%');
+    expect(formatShare(31, 90)).toBe('34%');
+    expect(formatShare(0, 0)).toBe('');
+  });
+
+  it('counts roles regardless of case and spacing, under the most common spelling', () => {
+    const roles = ['AI ENGINEER', 'AI Engineer', 'AI  Engineer', 'Data Analyst'].map((role) => app({ role }));
+    expect(countRoles(roles)).toEqual([{ label: 'AI Engineer', count: 3 }, { label: 'Data Analyst', count: 1 }]);
+    expect(countRoles(roles, 1)).toHaveLength(1);
+  });
+
+  it('shows platform brand names and leaves unknown ones as written', () => {
+    expect(['jobstreet', 'linkedin', 'LinkedIn', 'email'].map(platformName)).toEqual(['Jobstreet', 'LinkedIn', 'LinkedIn', 'Email']);
+    expect(platformName('Company Site')).toBe('Company Site');
+    expect(platformName('constructor')).toBe('constructor');
+  });
+
+  it('names a busiest weekday only after 14 active days', () => {
+    const on = (days: number) =>
+      Array.from({ length: 28 }, (_, i) => app({ applied_at: `2026-10-${String((i % days) + 1).padStart(2, '0')}` }));
+    expect(insights(on(13), today).join(' ')).not.toContain('busiest day');
+    expect(insights(on(14), today).join(' ')).toContain('busiest day');
   });
 
   it('demo data is deterministic and uses placeholder companies', () => {

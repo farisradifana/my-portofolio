@@ -3,7 +3,8 @@
 import { demoApplications } from '../lib/demo';
 import publicRows from '../data/applications.public.json';
 import {
-  applyFilters, countBy, daysBetween, funnel, insights, kpis, pct, perDay, statusDistribution, toCsv,
+  applyFilters, countBy, countRoles, daysBetween, formatDate, formatShare, funnel, insights, kpis, perDay, platformName,
+  statusDistribution, toCsv,
   type Application, type Bucket,
 } from '../lib/metrics';
 
@@ -34,10 +35,6 @@ const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'sho
 const longDate = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const fmt = (iso: string, f = shortDate) => f.format(new Date(iso + 'T00:00:00Z'));
 const plural = (n: number, word = 'application') => `${n.toLocaleString('en-GB')} ${word}${n === 1 ? '' : 's'}`;
-const share = (part: number, whole: number) => {
-  const p = pct(part, whole);
-  return p === null ? '' : `${p < 10 ? p.toFixed(1) : Math.round(p)}%`;
-};
 const statusVar = (s: string) => `var(--st-${s.toLowerCase()})`;
 
 // ---- State ------------------------------------------------------------------
@@ -49,6 +46,7 @@ const COLUMNS: [SortKey, string][] = [
 ];
 
 let all: Application[] = [];
+let hasLocation = false;
 let mode: 'demo' | 'public' = 'demo';
 let view: Application[] = [];
 let sort: { key: SortKey; dir: 1 | -1 } = { key: 'applied_at', dir: -1 };
@@ -218,13 +216,16 @@ function drawBars(hostId: string, buckets: Bucket[], whole: number, of: string) 
     const name = el('span', 'name', b.label);
     name.title = b.label;
     const val = el('span', 'val');
-    val.append(el('b', '', b.count.toLocaleString('en-GB')), document.createTextNode(` · ${share(b.count, whole)}`));
+    val.append(el('b', '', b.count.toLocaleString('en-GB')), document.createTextNode(` · ${formatShare(b.count, whole)}`));
     const track = el('div', 'track');
-    const fill = el('div', 'fill');
-    fill.style.setProperty('--w', `${(b.count / max) * 100}%`);
-    track.append(fill);
+    // No fill at zero: the bar's minimum width would draw a mark.
+    if (b.count > 0) {
+      const fill = el('div', 'fill');
+      fill.style.setProperty('--w', `${(b.count / max) * 100}%`);
+      track.append(fill);
+    }
     li.append(name, val, track);
-    hoverTip(li, b.label, `${plural(b.count)}, ${share(b.count, whole)} of ${of}`);
+    hoverTip(li, b.label, `${plural(b.count)}, ${formatShare(b.count, whole)} of ${of}`);
     list.append(li);
   }
   host.replaceChildren(list);
@@ -249,7 +250,7 @@ function drawDonut(apps: Application[]) {
       'stroke-dashoffset': offset,
     });
     arc.style.setProperty('stroke', statusVar(p.label));
-    hoverTip(arc, p.label, `${plural(p.count)}, ${share(p.count, total)} of the total`);
+    hoverTip(arc, p.label, `${plural(p.count)}, ${formatShare(p.count, total)} of the total`);
     root.append(arc);
     offset -= len;
   }
@@ -265,7 +266,7 @@ function drawDonut(apps: Application[]) {
     const sw = el('span', 'swatch');
     sw.style.setProperty('--c', statusVar(p.label));
     const val = el('span', 'val');
-    val.append(el('b', '', String(p.count)), document.createTextNode(` · ${share(p.count, total)}`));
+    val.append(el('b', '', String(p.count)), document.createTextNode(` · ${formatShare(p.count, total)}`));
     li.append(sw, el('span', '', p.label), val);
     legend.append(li);
   }
@@ -351,7 +352,7 @@ function sorted(): Application[] {
 
 function drawHead() {
   $('thead').replaceChildren(
-    ...COLUMNS.map(([key, label]) => {
+    ...COLUMNS.filter(([key]) => key !== 'location' || hasLocation).map(([key, label]) => {
       const th = el('th');
       th.scope = 'col';
       if (sort.key === key) th.setAttribute('aria-sort', sort.dir === 1 ? 'ascending' : 'descending');
@@ -377,7 +378,7 @@ function drawTable() {
   $('tbody').replaceChildren(
     ...slice.map((a) => {
       const tr = el('tr');
-      const company = el('td');
+      const company = el('td', 'center');
       if (/^https?:\/\//i.test(a.source_url)) {
         const link = el('a', '', a.company);
         link.href = a.source_url;
@@ -385,14 +386,14 @@ function drawTable() {
         link.rel = 'noopener noreferrer';
         company.append(link);
       } else company.textContent = a.company;
-      const status = el('td');
+      const status = el('td', 'center');
       const chip = el('span', 'status', a.status);
       chip.style.setProperty('--c', statusVar(a.status));
       status.append(chip);
+      const place = hasLocation ? [el('td', '', [a.location, a.work_type].filter(Boolean).join(' · ') || '–')] : [];
       tr.append(
-        el('td', 'date', fmt(a.applied_at, longDate).replace(/^\w+ /, '')), company, el('td', '', a.role), el('td', '', a.platform || '–'),
-        el('td', '', [a.location, a.work_type].filter(Boolean).join(' · ') || '–'), status,
-        el('td', 'date', fmt(a.last_update, longDate).replace(/^\w+ /, '')),
+        el('td', 'date center', formatDate(a.applied_at)), company, el('td', '', a.role), el('td', 'center', a.platform || '–'),
+        ...place, status, el('td', 'date center', formatDate(a.last_update)),
       );
       return tr;
     }),
@@ -433,14 +434,16 @@ function render() {
   drawBars('plot-platform', countBy(view, (a) => a.platform), view.length, 'applications');
   drawBars('plot-funnel', funnel(view), view.length, 'applications');
   drawBars('plot-companies', countBy(view, (a) => a.company, 10), view.length, 'applications');
-  drawBars('plot-roles', countBy(view, (a) => a.role, 10), view.length, 'applications');
+  drawBars('plot-roles', countRoles(view, 10), view.length, 'applications');
   drawHeat(view, days);
   drawInsights(view);
   drawTable();
 }
 
 function setData(apps: Application[], next: 'demo' | 'public') {
-  all = apps;
+  all = apps.map((a) => ({ ...a, platform: platformName(a.platform) }));
+  hasLocation = all.some((a) => a.location || a.work_type);
+  $<HTMLInputElement>('f-search').placeholder = hasLocation ? 'Company, role, location' : 'Company, role';
   mode = next;
   page = 0;
   const select = $<HTMLSelectElement>('f-platform');

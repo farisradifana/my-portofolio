@@ -41,7 +41,7 @@ import { STATUSES } from '../lib/metrics';
         </div>
         <div class="grow">
           <label for="f-search">Search</label>
-          <input class="control" id="f-search" name="search" type="search" placeholder="Company, role, location" autocomplete="off" />
+          <input class="control" id="f-search" name="search" type="search" placeholder="Company, role" autocomplete="off" />
         </div>
       </form>
 
@@ -54,7 +54,7 @@ import { STATUSES } from '../lib/metrics';
         </div>
 
         <div class="grid" id="charts">
-          <section class="card two-thirds" aria-labelledby="c-time">
+          <section class="card two-thirds time-card" aria-labelledby="c-time">
             <div class="card-head">
               <h2 id="c-time">Applications over time</h2>
               <div class="seg" role="group" aria-label="Series">
@@ -65,7 +65,7 @@ import { STATUSES } from '../lib/metrics';
             <div class="plot" id="plot-time"></div>
           </section>
 
-          <section class="card third" aria-labelledby="c-status">
+          <section class="card third status-card" aria-labelledby="c-status">
             <div class="card-head"><h2 id="c-status">Status</h2></div>
             <div class="donut" id="plot-status"></div>
           </section>
