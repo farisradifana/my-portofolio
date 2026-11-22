@@ -1,6 +1,34 @@
 [
   {
     "id": "app-0001",
+    "applied_at": "2026-11-03",
+    "company": "PT. MIT",
+    "role": "Technical Tester – Data Platform & Data Quality",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-03",
+    "notes": ""
+  },
+  {
+    "id": "app-0002",
+    "applied_at": "2026-11-08",
+    "company": "PT. SPS",
+    "role": "Sales Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-08",
+    "notes": ""
+  },
+  {
+    "id": "app-0003",
     "applied_at": "2026-11-16",
     "company": "ABG",
     "role": "Data Engineer",
@@ -14,7 +42,21 @@
     "notes": ""
   },
   {
-    "id": "app-0002",
+    "id": "app-0004",
+    "applied_at": "2026-11-16",
+    "company": "PT. EIU",
+    "role": "Power BI Analyst",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0005",
     "applied_at": "2026-11-16",
     "company": "ID",
     "role": "AI ENGINEER",
@@ -28,7 +70,7 @@
     "notes": ""
   },
   {
-    "id": "app-0003",
+    "id": "app-0006",
     "applied_at": "2026-11-16",
     "company": "PT. SGT",
     "role": "Data Analyst - Jakarta Utara",
@@ -42,7 +84,7 @@
     "notes": ""
   },
   {
-    "id": "app-0004",
+    "id": "app-0007",
     "applied_at": "2026-11-16",
     "company": "SR",
     "role": "Data Analyst Associate - Group Service",
@@ -56,7 +98,7 @@
     "notes": ""
   },
   {
-    "id": "app-0005",
+    "id": "app-0008",
     "applied_at": "2026-11-16",
     "company": "BPRSAMI",
     "role": "Core Banking & Data Analyst",
@@ -70,7 +112,7 @@
     "notes": ""
   },
   {
-    "id": "app-0006",
+    "id": "app-0009",
     "applied_at": "2026-11-16",
     "company": "JJ",
     "role": "Assistant to COO",
@@ -84,7 +126,7 @@
     "notes": ""
   },
   {
-    "id": "app-0007",
+    "id": "app-0010",
     "applied_at": "2026-11-16",
     "company": "PT. II",
     "role": "Data Quality Assurance",
@@ -98,7 +140,7 @@
     "notes": ""
   },
   {
-    "id": "app-0008",
+    "id": "app-0011",
     "applied_at": "2026-11-16",
     "company": "SE",
     "role": "Associate Data Engineer",
@@ -112,7 +154,7 @@
     "notes": ""
   },
   {
-    "id": "app-0009",
+    "id": "app-0012",
     "applied_at": "2026-11-16",
     "company": "SI",
     "role": "AI / LLM Engineer",
@@ -126,7 +168,7 @@
     "notes": ""
   },
   {
-    "id": "app-0010",
+    "id": "app-0013",
     "applied_at": "2026-11-16",
     "company": "DN",
     "role": "Business Intelligence Senior Associate",
@@ -140,7 +182,7 @@
     "notes": ""
   },
   {
-    "id": "app-0011",
+    "id": "app-0014",
     "applied_at": "2026-11-16",
     "company": "PT. SGT",
     "role": "Data Engineer - Can Join Immediately",
@@ -154,7 +196,7 @@
     "notes": ""
   },
   {
-    "id": "app-0012",
+    "id": "app-0015",
     "applied_at": "2026-11-16",
     "company": "MC",
     "role": "Revenue Analyst",
@@ -168,7 +210,7 @@
     "notes": ""
   },
   {
-    "id": "app-0013",
+    "id": "app-0016",
     "applied_at": "2026-11-16",
     "company": "BL",
     "role": "Jr. Data Engineer",
@@ -182,7 +224,7 @@
     "notes": ""
   },
   {
-    "id": "app-0014",
+    "id": "app-0017",
     "applied_at": "2026-11-16",
     "company": "MN",
     "role": "Strategic Analyst",
@@ -196,7 +238,7 @@
     "notes": ""
   },
   {
-    "id": "app-0015",
+    "id": "app-0018",
     "applied_at": "2026-11-16",
     "company": "PT. PT",
     "role": "Fullstack AI Engineer",
@@ -210,7 +252,7 @@
     "notes": ""
   },
   {
-    "id": "app-0016",
+    "id": "app-0019",
     "applied_at": "2026-11-16",
     "company": "PT. ADI",
     "role": "AI Engineer (6 Month Project Based)",
@@ -224,7 +266,7 @@
     "notes": ""
   },
   {
-    "id": "app-0017",
+    "id": "app-0020",
     "applied_at": "2026-11-16",
     "company": "SR",
     "role": "Demand & Supply Planning Associate",
@@ -238,7 +280,7 @@
     "notes": ""
   },
   {
-    "id": "app-0018",
+    "id": "app-0021",
     "applied_at": "2026-11-16",
     "company": "PAN",
     "role": "Data Analyst",
@@ -252,7 +294,7 @@
     "notes": ""
   },
   {
-    "id": "app-0019",
+    "id": "app-0022",
     "applied_at": "2026-11-16",
     "company": "KN",
     "role": "Data Engineer Specialist",
@@ -266,7 +308,7 @@
     "notes": ""
   },
   {
-    "id": "app-0020",
+    "id": "app-0023",
     "applied_at": "2026-11-16",
     "company": "PT. TBP",
     "role": "Data Engineer",
@@ -280,7 +322,7 @@
     "notes": ""
   },
   {
-    "id": "app-0021",
+    "id": "app-0024",
     "applied_at": "2026-11-16",
     "company": "NSG",
     "role": "Data Analyst",
@@ -294,7 +336,7 @@
     "notes": ""
   },
   {
-    "id": "app-0022",
+    "id": "app-0025",
     "applied_at": "2026-11-16",
     "company": "PT. LI",
     "role": "Data Scientist",
@@ -308,7 +350,7 @@
     "notes": ""
   },
   {
-    "id": "app-0023",
+    "id": "app-0026",
     "applied_at": "2026-11-16",
     "company": "RA",
     "role": "Data Analyst (Operations)",
@@ -322,7 +364,7 @@
     "notes": ""
   },
   {
-    "id": "app-0024",
+    "id": "app-0027",
     "applied_at": "2026-11-16",
     "company": "AGS",
     "role": "AI / ML Engineer",
@@ -336,7 +378,7 @@
     "notes": ""
   },
   {
-    "id": "app-0025",
+    "id": "app-0028",
     "applied_at": "2026-11-16",
     "company": "HO",
     "role": "IT Business Analyst / Transformation PM",
@@ -350,7 +392,7 @@
     "notes": ""
   },
   {
-    "id": "app-0026",
+    "id": "app-0029",
     "applied_at": "2026-11-16",
     "company": "YVG",
     "role": "Operations Analyst (Data & Automation)",
@@ -364,7 +406,7 @@
     "notes": ""
   },
   {
-    "id": "app-0027",
+    "id": "app-0030",
     "applied_at": "2026-11-16",
     "company": "AR",
     "role": "Risk Analytics Sr Analyst",
@@ -378,7 +420,7 @@
     "notes": ""
   },
   {
-    "id": "app-0028",
+    "id": "app-0031",
     "applied_at": "2026-11-16",
     "company": "ME",
     "role": "Analyst, IT Application",
@@ -392,7 +434,7 @@
     "notes": ""
   },
   {
-    "id": "app-0029",
+    "id": "app-0032",
     "applied_at": "2026-11-16",
     "company": "PT. NCK",
     "role": "AI Engineer",
@@ -406,7 +448,7 @@
     "notes": ""
   },
   {
-    "id": "app-0030",
+    "id": "app-0033",
     "applied_at": "2026-11-16",
     "company": "PT. PSM",
     "role": "Data Analyst",
@@ -420,7 +462,7 @@
     "notes": ""
   },
   {
-    "id": "app-0031",
+    "id": "app-0034",
     "applied_at": "2026-11-16",
     "company": "GPMSD",
     "role": "Data Analyst",
@@ -434,7 +476,7 @@
     "notes": ""
   },
   {
-    "id": "app-0032",
+    "id": "app-0035",
     "applied_at": "2026-11-16",
     "company": "AGS 2",
     "role": "Data Analyst",
@@ -448,7 +490,7 @@
     "notes": ""
   },
   {
-    "id": "app-0033",
+    "id": "app-0036",
     "applied_at": "2026-11-16",
     "company": "PT. SGT",
     "role": "Data Analyst",
@@ -462,51 +504,9 @@
     "notes": ""
   },
   {
-    "id": "app-0034",
-    "applied_at": "2026-11-16",
-    "company": "NSG",
-    "role": "Data Analyst",
-    "platform": "glints",
-    "location": "",
-    "work_type": "",
-    "seniority": "",
-    "source_url": "",
-    "status": "Applied",
-    "last_update": "2026-11-16",
-    "notes": ""
-  },
-  {
-    "id": "app-0035",
-    "applied_at": "2026-11-16",
-    "company": "SE",
-    "role": "Data Analyst",
-    "platform": "dealls",
-    "location": "",
-    "work_type": "",
-    "seniority": "",
-    "source_url": "",
-    "status": "Applied",
-    "last_update": "2026-11-16",
-    "notes": ""
-  },
-  {
-    "id": "app-0036",
-    "applied_at": "2026-11-16",
-    "company": "BG",
-    "role": "Data Engineer",
-    "platform": "dealls",
-    "location": "",
-    "work_type": "",
-    "seniority": "",
-    "source_url": "",
-    "status": "Applied",
-    "last_update": "2026-11-16",
-    "notes": ""
-  },
-  {
     "id": "app-0037",
     "applied_at": "2026-11-16",
-    "company": "PT. NIT",
+    "company": "NSG",
     "role": "Data Analyst",
     "platform": "glints",
     "location": "",
@@ -520,6 +520,48 @@
   {
     "id": "app-0038",
     "applied_at": "2026-11-16",
+    "company": "SE",
+    "role": "Data Analyst",
+    "platform": "dealls",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0039",
+    "applied_at": "2026-11-16",
+    "company": "BG",
+    "role": "Data Engineer",
+    "platform": "dealls",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0040",
+    "applied_at": "2026-11-16",
+    "company": "PT. NIT",
+    "role": "Data Analyst",
+    "platform": "glints",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0041",
+    "applied_at": "2026-11-16",
     "company": "DGW",
     "role": "Data Analyst Staff",
     "platform": "jobstreet",
@@ -532,7 +574,7 @@
     "notes": ""
   },
   {
-    "id": "app-0039",
+    "id": "app-0042",
     "applied_at": "2026-11-16",
     "company": "MI",
     "role": "AI Engineer",
@@ -546,7 +588,7 @@
     "notes": ""
   },
   {
-    "id": "app-0040",
+    "id": "app-0043",
     "applied_at": "2026-11-16",
     "company": "PT. ENG",
     "role": "AI Engineer",
@@ -560,7 +602,7 @@
     "notes": ""
   },
   {
-    "id": "app-0041",
+    "id": "app-0044",
     "applied_at": "2026-11-16",
     "company": "PT. ME",
     "role": "Data Engineer",
@@ -574,7 +616,7 @@
     "notes": ""
   },
   {
-    "id": "app-0042",
+    "id": "app-0045",
     "applied_at": "2026-11-16",
     "company": "NSG",
     "role": "Business Data Analyst (Furniture - Ekspor)",
@@ -588,7 +630,7 @@
     "notes": ""
   },
   {
-    "id": "app-0043",
+    "id": "app-0046",
     "applied_at": "2026-11-16",
     "company": "YDI",
     "role": "AI Engineer & Automation Architect",
@@ -602,7 +644,7 @@
     "notes": ""
   },
   {
-    "id": "app-0044",
+    "id": "app-0047",
     "applied_at": "2026-11-16",
     "company": "NSG",
     "role": "Data Analyst",
@@ -616,7 +658,21 @@
     "notes": ""
   },
   {
-    "id": "app-0045",
+    "id": "app-0048",
+    "applied_at": "2026-11-16",
+    "company": "ST",
+    "role": "Sales Analyst (Modern Trade)",
+    "platform": "linkedin",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0049",
     "applied_at": "2026-11-16",
     "company": "PT. MTD",
     "role": "Data Engineer",
@@ -630,7 +686,7 @@
     "notes": ""
   },
   {
-    "id": "app-0046",
+    "id": "app-0050",
     "applied_at": "2026-11-16",
     "company": "PE",
     "role": "IE - Data Analyst",
@@ -644,7 +700,7 @@
     "notes": ""
   },
   {
-    "id": "app-0047",
+    "id": "app-0051",
     "applied_at": "2026-11-16",
     "company": "KR",
     "role": "Data Analyst",
@@ -658,7 +714,21 @@
     "notes": ""
   },
   {
-    "id": "app-0048",
+    "id": "app-0052",
+    "applied_at": "2026-11-16",
+    "company": "PT. HWP",
+    "role": "Data Analysis Management",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0053",
     "applied_at": "2026-11-16",
     "company": "GKM",
     "role": "Data Analyst",
@@ -672,7 +742,7 @@
     "notes": ""
   },
   {
-    "id": "app-0049",
+    "id": "app-0054",
     "applied_at": "2026-11-16",
     "company": "SC",
     "role": "Associate Analyst",
@@ -686,7 +756,7 @@
     "notes": ""
   },
   {
-    "id": "app-0050",
+    "id": "app-0055",
     "applied_at": "2026-11-16",
     "company": "3CPDPDSV",
     "role": "Financial Data Analyst & Automation Specialist",
@@ -700,7 +770,21 @@
     "notes": ""
   },
   {
-    "id": "app-0051",
+    "id": "app-0056",
+    "applied_at": "2026-11-16",
+    "company": "TIPTBI",
+    "role": "Business Intelligence Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-16",
+    "notes": ""
+  },
+  {
+    "id": "app-0057",
     "applied_at": "2026-11-16",
     "company": "TA",
     "role": "Business Intelligence",
@@ -714,7 +798,7 @@
     "notes": ""
   },
   {
-    "id": "app-0052",
+    "id": "app-0058",
     "applied_at": "2026-11-16",
     "company": "BL",
     "role": "Associate Data Analyst",
@@ -728,7 +812,7 @@
     "notes": ""
   },
   {
-    "id": "app-0053",
+    "id": "app-0059",
     "applied_at": "2026-11-16",
     "company": "PT. MSP",
     "role": "Full Stack AI Engineer",
@@ -742,7 +826,7 @@
     "notes": ""
   },
   {
-    "id": "app-0054",
+    "id": "app-0060",
     "applied_at": "2026-11-16",
     "company": "MT",
     "role": "Data Engineer",
@@ -756,7 +840,203 @@
     "notes": ""
   },
   {
-    "id": "app-0055",
+    "id": "app-0061",
+    "applied_at": "2026-11-17",
+    "company": "PT. ASOP",
+    "role": "Data Analyst",
+    "platform": "email",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-17",
+    "notes": ""
+  },
+  {
+    "id": "app-0062",
+    "applied_at": "2026-11-19",
+    "company": "GTL",
+    "role": "Regional Support Specialist (US Shift / Night Shift) – Data & Modelling",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0063",
+    "applied_at": "2026-11-19",
+    "company": "BJC",
+    "role": "Vacancy 372-2611-1-3YOE-CPUB (title not stated)",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0064",
+    "applied_at": "2026-11-19",
+    "company": "PT. IBMTA",
+    "role": "data analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0065",
+    "applied_at": "2026-11-19",
+    "company": "PT. IOH",
+    "role": "Fiber Base Management - Sumatra Officer",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0066",
+    "applied_at": "2026-11-19",
+    "company": "PA",
+    "role": "AI Training & Data Annotation Contributors – Global Talent Network",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0067",
+    "applied_at": "2026-11-19",
+    "company": "B*",
+    "role": "Data Analytics (RQ116588)",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0068",
+    "applied_at": "2026-11-19",
+    "company": "PT. IJDFSM",
+    "role": "STAFF DATA ANALYST-CH",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0069",
+    "applied_at": "2026-11-19",
+    "company": "PT. LBB",
+    "role": "Junior Data Engineer",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0070",
+    "applied_at": "2026-11-19",
+    "company": "BPM",
+    "role": "Data Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0071",
+    "applied_at": "2026-11-19",
+    "company": "CI",
+    "role": "Junior Analyst - Metals Research",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0072",
+    "applied_at": "2026-11-19",
+    "company": "PT. GJE",
+    "role": "Service Operations (Data Analyst)",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0073",
+    "applied_at": "2026-11-19",
+    "company": "PT. TPCI",
+    "role": "Business Intelligence Analyst",
+    "platform": "glints",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0074",
+    "applied_at": "2026-11-19",
+    "company": "PT. MBU",
+    "role": "Sales Data & Planning Officer - Layer Commercial",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0075",
     "applied_at": "2026-11-19",
     "company": "OIM",
     "role": "Data Business Analyst (Banking)",
@@ -770,7 +1050,91 @@
     "notes": ""
   },
   {
-    "id": "app-0056",
+    "id": "app-0076",
+    "applied_at": "2026-11-19",
+    "company": "XXCI",
+    "role": "Area Growth Mgmt - East Java",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0077",
+    "applied_at": "2026-11-19",
+    "company": "7N",
+    "role": "Data Scientist - Remote Malaysia (m/f/d) - Sydney Team",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0078",
+    "applied_at": "2026-11-19",
+    "company": "MGM",
+    "role": "Data Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0079",
+    "applied_at": "2026-11-19",
+    "company": "PT. GBM",
+    "role": "Data Analyst & Sales Support Staff",
+    "platform": "email",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0080",
+    "applied_at": "2026-11-19",
+    "company": "SP",
+    "role": "Sales & Data Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0081",
+    "applied_at": "2026-11-19",
+    "company": "PT. IOH",
+    "role": "ODU Acquisition & Base Management Officer",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0082",
     "applied_at": "2026-11-19",
     "company": "FT",
     "role": "Finance Data Analyst (Mandarin Speaker)",
@@ -784,7 +1148,147 @@
     "notes": ""
   },
   {
-    "id": "app-0057",
+    "id": "app-0083",
+    "applied_at": "2026-11-19",
+    "company": "WMG",
+    "role": "Data Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0084",
+    "applied_at": "2026-11-19",
+    "company": "XXCI",
+    "role": "Marketing Intelligence - Southern Sumatra (Palembang)",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0085",
+    "applied_at": "2026-11-19",
+    "company": "SLA",
+    "role": "Telco solution architect",
+    "platform": "linkedin",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0086",
+    "applied_at": "2026-11-19",
+    "company": "PT. SSI",
+    "role": "Data Analyst Supervisor",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0087",
+    "applied_at": "2026-11-19",
+    "company": "XXCI",
+    "role": "Big Data Insight & AI LLM Specialist",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0088",
+    "applied_at": "2026-11-19",
+    "company": "PT. IOH",
+    "role": "ODU & IDU Sales Planning Officer",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-19",
+    "notes": ""
+  },
+  {
+    "id": "app-0089",
+    "applied_at": "2026-11-20",
+    "company": "PT. JESCG",
+    "role": "Data Analyst",
+    "platform": "email",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-20",
+    "notes": ""
+  },
+  {
+    "id": "app-0090",
+    "applied_at": "2026-11-20",
+    "company": "PT. KEI",
+    "role": "BI Analyst",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-20",
+    "notes": ""
+  },
+  {
+    "id": "app-0091",
+    "applied_at": "2026-11-20",
+    "company": "PT. IMK",
+    "role": "Staf Analis Data",
+    "platform": "glints",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-20",
+    "notes": ""
+  },
+  {
+    "id": "app-0092",
+    "applied_at": "2026-11-21",
+    "company": "DKM",
+    "role": "Business Analyst – CRM & Customer Experience (CX) Solutions",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-21",
+    "notes": ""
+  },
+  {
+    "id": "app-0093",
     "applied_at": "2026-11-22",
     "company": "PT. IBMTA",
     "role": "Governance Analyst",
@@ -798,7 +1302,21 @@
     "notes": ""
   },
   {
-    "id": "app-0058",
+    "id": "app-0094",
+    "applied_at": "2026-11-22",
+    "company": "PT. BSI",
+    "role": "JID-1008-Data Analyst",
+    "platform": "email",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0095",
     "applied_at": "2026-11-22",
     "company": "CL",
     "role": "Data Analyst, Business Intelligence",
@@ -812,7 +1330,7 @@
     "notes": ""
   },
   {
-    "id": "app-0059",
+    "id": "app-0096",
     "applied_at": "2026-11-22",
     "company": "PT. IY",
     "role": "Data Analyst",
@@ -826,7 +1344,7 @@
     "notes": ""
   },
   {
-    "id": "app-0060",
+    "id": "app-0097",
     "applied_at": "2026-11-22",
     "company": "AF",
     "role": "Data Analyst",
@@ -840,9 +1358,9 @@
     "notes": ""
   },
   {
-    "id": "app-0061",
+    "id": "app-0098",
     "applied_at": "2026-11-22",
-    "company": "TP",
+    "company": "T*",
     "role": "Business Intelligence Supervisor - Yogyakarta",
     "platform": "linkedin",
     "location": "",
@@ -854,7 +1372,35 @@
     "notes": ""
   },
   {
-    "id": "app-0062",
+    "id": "app-0099",
+    "applied_at": "2026-11-22",
+    "company": "CC",
+    "role": "Business Intelligence ( Mid - Senior)",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0100",
+    "applied_at": "2026-11-22",
+    "company": "LN",
+    "role": "Data Analyst (Full Time)",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0101",
     "applied_at": "2026-11-22",
     "company": "FC",
     "role": "Application Support Analyst",
@@ -868,7 +1414,21 @@
     "notes": ""
   },
   {
-    "id": "app-0063",
+    "id": "app-0102",
+    "applied_at": "2026-11-22",
+    "company": "NS",
+    "role": "Data Operations Analyst (3 Months Contract)",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0103",
     "applied_at": "2026-11-22",
     "company": "VM",
     "role": "Data Analyst",
@@ -882,7 +1442,7 @@
     "notes": ""
   },
   {
-    "id": "app-0064",
+    "id": "app-0104",
     "applied_at": "2026-11-22",
     "company": "PA",
     "role": "Data Support Spv - FMCG",
@@ -896,7 +1456,7 @@
     "notes": ""
   },
   {
-    "id": "app-0065",
+    "id": "app-0105",
     "applied_at": "2026-11-22",
     "company": "PT. SBI",
     "role": "Retail Market Analyst Officer",
@@ -910,7 +1470,7 @@
     "notes": ""
   },
   {
-    "id": "app-0066",
+    "id": "app-0106",
     "applied_at": "2026-11-22",
     "company": "CI",
     "role": "Junior Analyst (Metals Market Analyst)",
@@ -924,7 +1484,7 @@
     "notes": ""
   },
   {
-    "id": "app-0067",
+    "id": "app-0107",
     "applied_at": "2026-11-22",
     "company": "CI",
     "role": "Junior Analyst (Metals Market Analyst)",
@@ -938,7 +1498,7 @@
     "notes": ""
   },
   {
-    "id": "app-0068",
+    "id": "app-0108",
     "applied_at": "2026-11-22",
     "company": "PT. GLI",
     "role": "Data Analyst & AI Engineer Backend Developer Information System Software Web IT",
@@ -952,7 +1512,7 @@
     "notes": ""
   },
   {
-    "id": "app-0069",
+    "id": "app-0109",
     "applied_at": "2026-11-22",
     "company": "PT. BAM",
     "role": "Retail Business Data Analyst",
@@ -966,7 +1526,7 @@
     "notes": ""
   },
   {
-    "id": "app-0070",
+    "id": "app-0110",
     "applied_at": "2026-11-22",
     "company": "MC 2",
     "role": "Junior AI / Agentic Systems Developer",
@@ -980,7 +1540,7 @@
     "notes": ""
   },
   {
-    "id": "app-0071",
+    "id": "app-0111",
     "applied_at": "2026-11-22",
     "company": "HTTM",
     "role": "Business Intelligence",
@@ -994,7 +1554,7 @@
     "notes": ""
   },
   {
-    "id": "app-0072",
+    "id": "app-0112",
     "applied_at": "2026-11-22",
     "company": "BA",
     "role": "Business Intelligence Analyst",
@@ -1008,7 +1568,7 @@
     "notes": ""
   },
   {
-    "id": "app-0073",
+    "id": "app-0113",
     "applied_at": "2026-11-22",
     "company": "XI",
     "role": "Service Data Analyst",
@@ -1022,7 +1582,21 @@
     "notes": ""
   },
   {
-    "id": "app-0074",
+    "id": "app-0114",
+    "applied_at": "2026-11-22",
+    "company": "PM",
+    "role": "Data Analyst (REMOTE JOB NIGHT TIME)",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0115",
     "applied_at": "2026-11-22",
     "company": "PT. GJE",
     "role": "Network Development Staff (Data Analyst)",
@@ -1036,7 +1610,7 @@
     "notes": ""
   },
   {
-    "id": "app-0075",
+    "id": "app-0116",
     "applied_at": "2026-11-22",
     "company": "PT. SCSI",
     "role": "Sales Support (Surabaya)",
@@ -1050,7 +1624,7 @@
     "notes": ""
   },
   {
-    "id": "app-0076",
+    "id": "app-0117",
     "applied_at": "2026-11-22",
     "company": "PT. DEMU",
     "role": "Data Analyst - Technology Sector",
@@ -1064,7 +1638,7 @@
     "notes": ""
   },
   {
-    "id": "app-0077",
+    "id": "app-0118",
     "applied_at": "2026-11-22",
     "company": "PT. GPPJ",
     "role": "Infrastructure & Database Engineer",
@@ -1078,7 +1652,7 @@
     "notes": ""
   },
   {
-    "id": "app-0078",
+    "id": "app-0119",
     "applied_at": "2026-11-22",
     "company": "SB",
     "role": "Sales Business Analyst",
@@ -1092,7 +1666,7 @@
     "notes": ""
   },
   {
-    "id": "app-0079",
+    "id": "app-0120",
     "applied_at": "2026-11-22",
     "company": "ES",
     "role": "Business Intelligence Analyst",
@@ -1106,7 +1680,7 @@
     "notes": ""
   },
   {
-    "id": "app-0080",
+    "id": "app-0121",
     "applied_at": "2026-11-22",
     "company": "HBI",
     "role": "E-commerce Data Analyst",
@@ -1120,7 +1694,7 @@
     "notes": ""
   },
   {
-    "id": "app-0081",
+    "id": "app-0122",
     "applied_at": "2026-11-22",
     "company": "AR 2",
     "role": "Data Analyst",
@@ -1134,7 +1708,7 @@
     "notes": ""
   },
   {
-    "id": "app-0082",
+    "id": "app-0123",
     "applied_at": "2026-11-22",
     "company": "ND",
     "role": "Data Analyst",
@@ -1148,7 +1722,7 @@
     "notes": ""
   },
   {
-    "id": "app-0083",
+    "id": "app-0124",
     "applied_at": "2026-11-22",
     "company": "BN",
     "role": "Data Analyst (12 months contract)",
@@ -1162,7 +1736,21 @@
     "notes": ""
   },
   {
-    "id": "app-0084",
+    "id": "app-0125",
+    "applied_at": "2026-11-22",
+    "company": "DK",
+    "role": "Engineer",
+    "platform": "company site",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0126",
     "applied_at": "2026-11-22",
     "company": "PT. PBP",
     "role": "Data Analyst Specialist",
@@ -1176,7 +1764,7 @@
     "notes": ""
   },
   {
-    "id": "app-0085",
+    "id": "app-0127",
     "applied_at": "2026-11-22",
     "company": "AT",
     "role": "Data Analyst",
@@ -1190,7 +1778,49 @@
     "notes": ""
   },
   {
-    "id": "app-0086",
+    "id": "app-0128",
+    "applied_at": "2026-11-22",
+    "company": "CA",
+    "role": "Data Analyst",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0129",
+    "applied_at": "2026-11-22",
+    "company": "PT. OMG",
+    "role": "Data Analyst",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0130",
+    "applied_at": "2026-11-22",
+    "company": "CB",
+    "role": "Data Analyst",
+    "platform": "indeed",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0131",
     "applied_at": "2026-11-22",
     "company": "PZ",
     "role": "Data Analyst",
@@ -1204,7 +1834,7 @@
     "notes": ""
   },
   {
-    "id": "app-0087",
+    "id": "app-0132",
     "applied_at": "2026-11-22",
     "company": "PA",
     "role": "Middle Data Analyst",
@@ -1218,7 +1848,7 @@
     "notes": ""
   },
   {
-    "id": "app-0088",
+    "id": "app-0133",
     "applied_at": "2026-11-22",
     "company": "BN",
     "role": "BN Accelerator Program - Research Data Analyst",
@@ -1232,7 +1862,7 @@
     "notes": ""
   },
   {
-    "id": "app-0089",
+    "id": "app-0134",
     "applied_at": "2026-11-22",
     "company": "PT. BTS",
     "role": "Data Engineer",
@@ -1246,7 +1876,7 @@
     "notes": ""
   },
   {
-    "id": "app-0090",
+    "id": "app-0135",
     "applied_at": "2026-11-22",
     "company": "NS",
     "role": "Business Intelligence Associate",
