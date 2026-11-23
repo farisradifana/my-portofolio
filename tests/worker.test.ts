@@ -112,6 +112,49 @@ describe('sync-tracker', () => {
     expect(parseApplications(first.applications).ok).toBe(true);
   });
 
+  it('does not count a reply row as another application', () => {
+    const csv = [
+      header,
+      '2026-11-10,Telco A,Analyst,88,APPLIED,LinkedIn,cv.pdf,https://example.com/j/1,,first,,r1',
+      '2026-11-15,Telco A,Analyst,88,APPLIED,LinkedIn,cv.pdf,https://example.com/j/1,,OUTCOME:INTERVIEW_INVITE — Interview,,r2',
+      '2026-11-16,Bank B,Analyst,70,APPLIED,Glints,cv.pdf,,,asked about OUTCOME: none yet,,r2',
+    ].join('\n');
+    const { applications, skipped } = mapTracker(parseCsv(csv));
+    expect(applications.map((a) => [a.applied_at, a.company])).toEqual([['2026-11-10', 'Telco A'], ['2026-11-16', 'Bank B']]);
+    expect(skipped).toEqual([]);
+  });
+
+  it('shows the latest reply as the status of its application', () => {
+    const csv = [
+      header,
+      '2026-11-01,Telco A,Analyst,88,APPLIED,LinkedIn,,https://example.com/j/1,,,,',
+      '2026-11-02,Bank B,Analyst,70,APPLIED,Glints,,,https://ats.example.com/2,,,',
+      '2026-11-03,Retail C,Planner,70,APPLIED,Glints,,,,,,',
+      '2026-11-10,Retail C,Planner,70,APPLIED,Glints,,,,,,',
+      '2026-11-04,Shop D,Engineer,70,APPLIED,Glints,,,,,,',
+      '2026-11-09,Telco A,Analyst,88,APPLIED,LinkedIn,,https://example.com/j/1,,OUTCOME:REJECTION — No,,',
+      '2026-11-05,Telco A,Analyst,88,APPLIED,LinkedIn,,https://example.com/j/1,,OUTCOME:INTERVIEW_INVITE — Talk,,',
+      '2026-11-06,Bank B,Analyst,70,APPLIED,Glints,,,,OUTCOME:ASSESSMENT — Test,,',
+      '2026-11-08,Retail C,Planner,70,APPLIED,Glints,,,,OUTCOME:INTERVIEW_INVITE — Talk,,',
+      '2026-11-07,Shop D,Engineer,70,APPLIED,Glints,,,,OUTCOME:RECRUITER_REPLY — Hello,,',
+      '2026-11-07,Nowhere E,Engineer,70,APPLIED,Glints,,,,OUTCOME:REJECTION — No,,',
+    ].join('\n');
+    const { applications, skipped } = mapTracker(parseCsv(csv));
+    expect(applications.map((a) => [a.company, a.status, a.last_update])).toEqual([
+      ['Telco A', 'Rejected', '2026-11-09'],
+      ['Bank B', 'Assessment', '2026-11-06'],
+      ['Retail C', 'Interview', '2026-11-08'],
+      ['Retail C', 'Applied', '2026-11-10'],
+      ['Shop D', 'Applied', '2026-11-04'],
+    ]);
+    expect(skipped).toEqual([{ line: 12, reason: 'reply matches no application' }]);
+    // A reply must not change the id, or the dashboard would store a second application.
+    const unanswered = mapTracker(parseCsv(csv.split('\n').slice(0, 6).join('\n'))).applications;
+    expect(applications.map((a) => a.id)).toEqual(unanswered.map((a) => a.id));
+    expect(toPublic(applications).map((a) => a.status)).toContain('Rejected');
+    expect(parseApplications(applications).ok).toBe(true);
+  });
+
   it('returns nothing for a header-only tracker', () => {
     expect(mapTracker(parseCsv(header + '\n'))).toEqual({ applications: [], skipped: [] });
   });

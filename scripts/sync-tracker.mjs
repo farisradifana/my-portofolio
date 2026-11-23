@@ -14,6 +14,14 @@ import { pathToFileURL } from 'node:url';
 const BATCH = 200;
 const MAX_ATTEMPTS = 3;
 const TIMEOUT_MS = 15_000;
+// Same value as OUTCOME_PREFIX in ai-job-apply's models.py.
+const OUTCOME_PREFIX = 'OUTCOME:';
+// Reply classes from ai-job-apply's inbox.py that move an application to another status.
+const REPLY_STATUS = new Map([
+  ['INTERVIEW_INVITE', 'Interview'],
+  ['ASSESSMENT', 'Assessment'],
+  ['REJECTION', 'Rejected'],
+]);
 
 /** RFC 4180 parser: quoted fields, doubled quotes, CRLF or LF. Returns rows of cells. */
 export function parseCsv(text) {
@@ -49,7 +57,10 @@ export function parseCsv(text) {
 
 /**
  * Tracker rows -> dashboard applications. Only rows with status APPLIED count:
- * QUEUED, SKIPPED, BLOCKED and FOUND are not applications.
+ * QUEUED, SKIPPED, BLOCKED and FOUND are not applications, and neither are the
+ * reply rows the mail scan appends (status APPLIED, notes "OUTCOME:..."). The
+ * latest such reply sets the status and last update of the application it answers:
+ * the newest one with the same job_url (else company and role) sent by that date.
  * Returns { applications, skipped } where skipped lists rows that could not be mapped.
  */
 export function mapTracker(rows) {
@@ -62,6 +73,8 @@ export function mapTracker(rows) {
   const get = (row, name) => (col[name] === undefined ? '' : (row[col[name]] ?? '').trim());
 
   const applications = [];
+  const replies = [];
+  const byJob = new Map(); // job key -> its applications
   const skipped = [];
   body.forEach((row, i) => {
     if (get(row, 'status').toUpperCase() !== 'APPLIED') return;
@@ -72,8 +85,15 @@ export function mapTracker(rows) {
       skipped.push({ line: i + 2, reason: 'missing date, company or role' });
       return;
     }
+    const key = get(row, 'job_url') || `${company}|${role}`;
+    const note = get(row, 'notes');
+    if (note.startsWith(OUTCOME_PREFIX)) {
+      const status = REPLY_STATUS.get(note.slice(OUTCOME_PREFIX.length).split(' ', 1)[0]);
+      if (status) replies.push({ key, date, status, line: i + 2 });
+      return;
+    }
     const url = get(row, 'job_url') || get(row, 'ats_url');
-    applications.push({
+    const application = {
       id: createHash('sha256').update([date, company, role, url].join('|').toLowerCase()).digest('hex').slice(0, 24),
       applied_at: date,
       company,
@@ -85,9 +105,18 @@ export function mapTracker(rows) {
       source_url: /^https?:\/\//i.test(url) ? url : '',
       status: 'Applied',
       last_update: date,
-      notes: get(row, 'notes'),
-    });
+      notes: note,
+    };
+    applications.push(application);
+    byJob.set(key, [...(byJob.get(key) ?? []), application]);
   });
+
+  for (const reply of replies.sort((a, b) => a.date.localeCompare(b.date))) {
+    const sent = (byJob.get(reply.key) ?? []).filter((a) => a.applied_at <= reply.date);
+    const target = sent.sort((a, b) => a.applied_at.localeCompare(b.applied_at)).at(-1);
+    if (target) Object.assign(target, { status: reply.status, last_update: reply.date });
+    else skipped.push({ line: reply.line, reason: 'reply matches no application' });
+  }
   return { applications, skipped };
 }
 

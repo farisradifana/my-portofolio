@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Writes the public dashboard data (src/data/applications.public.json) from the
 // apply-job-daily tracker CSV. Only APPLIED rows are exported. Company names
-// are reduced to initials, and links and notes are left out, so the committed
-// file never carries a full employer name.
+// are reduced to initials (also inside role titles), and links and notes are
+// left out, so the committed file never carries a full employer name.
 //
 //   node scripts/export-public.mjs "F:\apply-job\ai-job-apply\data\tracker.csv"
 //
@@ -19,6 +19,7 @@ const LEGAL_SUFFIX = /^(tbk|persero|ltd|inc|llc|corp|co|gmbh|pte|sdn|bhd|plc)\.?
  * "PT. Prima Sentral Distribusi" -> "PT. PSD", "PT. Metrodata" -> "PT. MD".
  * Several words give one letter each. A single word gives its first letter plus
  * the first consonant from its midpoint on, so the result is never one letter.
+ * A name of one or two letters would show in full, so it is masked: "QZ" -> "Q*".
  */
 export function companyInitials(name) {
   const words = name
@@ -32,9 +33,22 @@ export function companyInitials(name) {
   if (words.length === 0) return prefix.trim() || '?';
   if (words.length > 1) return prefix + words.map(first).join('');
   const word = words[0];
+  if ([...word].length <= 2) return `${prefix}${first(word)}*`;
   const rest = [...word.slice(Math.floor(word.length / 2))];
   const second = rest.find((c) => /[^aeiou\d]/i.test(c)) ?? rest[0] ?? '';
   return prefix + first(word) + second.toUpperCase();
+}
+
+/** "Acme Graduate Program" at Acme -> "AM Graduate Program". */
+function redactEmployer(role, company, label) {
+  const words = company.trim().split(/\s+/);
+  if (words.length > 1 && LEGAL_PREFIX.test(words[0])) words.shift();
+  while (words.length > 1 && LEGAL_SUFFIX.test(words[words.length - 1])) words.pop();
+  // Full name first, so "PT. Acme" does not become "PT. PT. AM".
+  const names = [...new Set([company.trim(), words.join(' ')])].filter((n) => n.length >= 3);
+  if (names.length === 0) return role;
+  const any = names.map((n) => n.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|');
+  return role.replace(new RegExp(`(?<![\\p{L}\\p{N}])(?:${any})(?![\\p{L}\\p{N}])`, 'giu'), () => label);
 }
 
 /** Mapped tracker applications -> public rows. Different companies never share a label. */
@@ -57,7 +71,7 @@ export function toPublic(applications) {
       id: `app-${String(i + 1).padStart(4, '0')}`,
       applied_at: a.applied_at,
       company: label(a.company),
-      role: a.role,
+      role: redactEmployer(a.role, a.company, label(a.company)),
       platform: a.platform,
       location: a.location,
       work_type: a.work_type,
