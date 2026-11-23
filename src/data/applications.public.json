@@ -317,8 +317,8 @@
     "work_type": "",
     "seniority": "",
     "source_url": "",
-    "status": "Applied",
-    "last_update": "2026-11-16",
+    "status": "Rejected",
+    "last_update": "2026-11-23",
     "notes": ""
   },
   {
@@ -471,8 +471,8 @@
     "work_type": "",
     "seniority": "",
     "source_url": "",
-    "status": "Applied",
-    "last_update": "2026-11-16",
+    "status": "Interview",
+    "last_update": "2026-11-23",
     "notes": ""
   },
   {
@@ -1283,8 +1283,8 @@
     "work_type": "",
     "seniority": "",
     "source_url": "",
-    "status": "Applied",
-    "last_update": "2026-11-21",
+    "status": "Rejected",
+    "last_update": "2026-11-23",
     "notes": ""
   },
   {
@@ -1887,6 +1887,34 @@
     "source_url": "",
     "status": "Applied",
     "last_update": "2026-11-22",
+    "notes": ""
+  },
+  {
+    "id": "app-0136",
+    "applied_at": "2026-11-23",
+    "company": "PT. ATI",
+    "role": "Data Scient Analis",
+    "platform": "jobstreet",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-23",
+    "notes": ""
+  },
+  {
+    "id": "app-0137",
+    "applied_at": "2026-11-23",
+    "company": "MG",
+    "role": "Database Administrator - PostgreSQL",
+    "platform": "linkedin",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Applied",
+    "last_update": "2026-11-23",
     "notes": ""
   }
 ]
