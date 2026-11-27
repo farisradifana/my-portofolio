@@ -2018,6 +2018,20 @@
   {
     "id": "app-0145",
     "applied_at": "2026-11-25",
+    "company": "T*",
+    "role": "Business Intelligence Analyst - Yogyakarta",
+    "platform": "mokahr",
+    "location": "",
+    "work_type": "",
+    "seniority": "",
+    "source_url": "",
+    "status": "Assessment",
+    "last_update": "2026-11-27",
+    "notes": ""
+  },
+  {
+    "id": "app-0146",
+    "applied_at": "2026-11-25",
     "company": "CPI",
     "role": "Overseas Purchase Admin",
     "platform": "cp.co.id",
@@ -2030,7 +2044,7 @@
     "notes": ""
   },
   {
-    "id": "app-0146",
+    "id": "app-0147",
     "applied_at": "2026-11-25",
     "company": "CPI",
     "role": "Admin Statistik Farm",
@@ -2044,7 +2058,7 @@
     "notes": ""
   },
   {
-    "id": "app-0147",
+    "id": "app-0148",
     "applied_at": "2026-11-26",
     "company": "CPI",
     "role": "AI Engineer",
@@ -2058,7 +2072,7 @@
     "notes": ""
   },
   {
-    "id": "app-0148",
+    "id": "app-0149",
     "applied_at": "2026-11-26",
     "company": "LD",
     "role": "Business Intelligence Analyst",
@@ -2072,7 +2086,7 @@
     "notes": ""
   },
   {
-    "id": "app-0149",
+    "id": "app-0150",
     "applied_at": "2026-11-26",
     "company": "PT. WII",
     "role": "Market Data Analyst",
@@ -2086,7 +2100,7 @@
     "notes": ""
   },
   {
-    "id": "app-0150",
+    "id": "app-0151",
     "applied_at": "2026-11-26",
     "company": "AL",
     "role": "SFE Data Analyst",
@@ -2100,7 +2114,7 @@
     "notes": ""
   },
   {
-    "id": "app-0151",
+    "id": "app-0152",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst - Business Intelligence, Marketplace",
@@ -2114,7 +2128,7 @@
     "notes": ""
   },
   {
-    "id": "app-0152",
+    "id": "app-0153",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence Executive - Marketplace",
@@ -2128,7 +2142,7 @@
     "notes": ""
   },
   {
-    "id": "app-0153",
+    "id": "app-0154",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence Assistant Manager - SP 2",
@@ -2142,7 +2156,7 @@
     "notes": ""
   },
   {
-    "id": "app-0154",
+    "id": "app-0155",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Business Intelligence Executive - Business Intelligence, SPX Express",
@@ -2156,7 +2170,7 @@
     "notes": ""
   },
   {
-    "id": "app-0155",
+    "id": "app-0156",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence Executive - Business Intelligence, Quality",
@@ -2170,7 +2184,7 @@
     "notes": ""
   },
   {
-    "id": "app-0156",
+    "id": "app-0157",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst - SG Business Intelligence",
@@ -2184,7 +2198,7 @@
     "notes": ""
   },
   {
-    "id": "app-0157",
+    "id": "app-0158",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Data Analyst, Fulfilled Business (SP 2)",
@@ -2198,7 +2212,7 @@
     "notes": ""
   },
   {
-    "id": "app-0158",
+    "id": "app-0159",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Data Analyst (SP 2)",
@@ -2212,7 +2226,7 @@
     "notes": ""
   },
   {
-    "id": "app-0159",
+    "id": "app-0160",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Data Analyst - Business Intelligence, Marketplace",
@@ -2226,7 +2240,7 @@
     "notes": ""
   },
   {
-    "id": "app-0160",
+    "id": "app-0161",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence Executive - Business Intelligence, SPX Express",
@@ -2240,7 +2254,7 @@
     "notes": ""
   },
   {
-    "id": "app-0161",
+    "id": "app-0162",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Business Intelligence Analyst SBS Performance - Business Intelligence & Planning, SP 2",
@@ -2254,7 +2268,7 @@
     "notes": ""
   },
   {
-    "id": "app-0162",
+    "id": "app-0163",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Data Analyst, Scommerce",
@@ -2268,7 +2282,7 @@
     "notes": ""
   },
   {
-    "id": "app-0163",
+    "id": "app-0164",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst (SPX Express)",
@@ -2282,7 +2296,7 @@
     "notes": ""
   },
   {
-    "id": "app-0164",
+    "id": "app-0165",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst, Business Intelligence - SPX Express",
@@ -2296,7 +2310,7 @@
     "notes": ""
   },
   {
-    "id": "app-0165",
+    "id": "app-0166",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Data Analyst, Regional Business Intelligence & Planning",
@@ -2310,7 +2324,7 @@
     "notes": ""
   },
   {
-    "id": "app-0166",
+    "id": "app-0167",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Data Analyst, ShopeeFood",
@@ -2324,7 +2338,7 @@
     "notes": ""
   },
   {
-    "id": "app-0167",
+    "id": "app-0168",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Reporting and Analytics Specialist, Business Intelligence",
@@ -2338,7 +2352,7 @@
     "notes": ""
   },
   {
-    "id": "app-0168",
+    "id": "app-0169",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Regional Business Intelligence (SP 2)",
@@ -2352,7 +2366,7 @@
     "notes": ""
   },
   {
-    "id": "app-0169",
+    "id": "app-0170",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst - Fulfillment, Business Intelligence , Scommerce",
@@ -2366,7 +2380,7 @@
     "notes": ""
   },
   {
-    "id": "app-0170",
+    "id": "app-0171",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst, Regional Business Intelligence & Planning",
@@ -2380,7 +2394,7 @@
     "notes": ""
   },
   {
-    "id": "app-0171",
+    "id": "app-0172",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Performance and Analytics (ShopeeFood)",
@@ -2394,7 +2408,7 @@
     "notes": ""
   },
   {
-    "id": "app-0172",
+    "id": "app-0173",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Analyst, Business Intelligence",
@@ -2408,7 +2422,7 @@
     "notes": ""
   },
   {
-    "id": "app-0173",
+    "id": "app-0174",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Data Intelligence (SPX Express)",
@@ -2422,7 +2436,7 @@
     "notes": ""
   },
   {
-    "id": "app-0174",
+    "id": "app-0175",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence Developer",
@@ -2436,7 +2450,7 @@
     "notes": ""
   },
   {
-    "id": "app-0175",
+    "id": "app-0176",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence Analyst",
@@ -2450,7 +2464,7 @@
     "notes": ""
   },
   {
-    "id": "app-0176",
+    "id": "app-0177",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Associate, Data Analytics - ShopeeFood (Demand Planning)",
@@ -2464,7 +2478,7 @@
     "notes": ""
   },
   {
-    "id": "app-0177",
+    "id": "app-0178",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Business Intelligence (SP 2) Fresh Graduate",
@@ -2478,7 +2492,7 @@
     "notes": ""
   },
   {
-    "id": "app-0178",
+    "id": "app-0179",
     "applied_at": "2026-11-27",
     "company": "SP 2",
     "role": "Senior Business Intelligence Analyst - Business Intelligence & Planning, SP 2",
@@ -2492,7 +2506,7 @@
     "notes": ""
   },
   {
-    "id": "app-0179",
+    "id": "app-0180",
     "applied_at": "2026-11-27",
     "company": "TT",
     "role": "TT Shop - Business Intelligence, Seller Management (E-commerce) - Thailand",
